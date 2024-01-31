@@ -19,8 +19,8 @@
                 <span>Category</span>
             </a>
             <ul class="dropdown-menu">
-            <li><a class="nav-link" href="layout-default.html">Menu Category</a></li>
-            <li><a class="nav-link" href="layout-transparent.html">Blog category</a></li>
+            <li><a class="nav-link" href="{{ route('category.index') }}">Menu Category</a></li>
+            <li><a class="nav-link" href="{{ route('category.index').'?type=blog' }}">Blog category</a></li>
             <li><a class="nav-link" href="{{ route('category.create') }}">Category Create</a></li>
         </ul>
         </li>

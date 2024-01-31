@@ -16,7 +16,13 @@ class CategoryController extends Controller
     {
         $page_title =  'Category List';
 
-        return view('category.index', compact('page_title'));
+        if (request('type') == 'blog') {
+            $categories = Category::where('type', 1)->get();
+        } else {
+            $categories = Category::where('type', 0)->get();
+        }
+
+        return view('category.index', compact('page_title', 'categories'));
     }
 
     /**
@@ -44,12 +50,22 @@ class CategoryController extends Controller
             'type' => 'required'
         ]);
 
+        if ($request->hasFile('thumbnail')) {
+            $image = $request->file('thumbnail');
+            $path = '/uploads/category/';
+        }
+
         Category::create([
             'name' => $request->name,
+            'thumbnail' => $request->hasFile('thumbnail') ? uploadImage($image, $path):'',
             'type' => $request->type
         ]);
 
-        return redirect()->route('category.index');
+        if ($request->type == 0) {
+            return redirect()->route('category.index')->with('toast_success', 'Category Updated Successfully!');
+        }else{
+            return redirect()->route('category.index')->with('toast_success', 'Category Updated Successfully!');
+        }
     }
 
     /**
