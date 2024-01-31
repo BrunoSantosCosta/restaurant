@@ -108,7 +108,7 @@ class CategoryController extends Controller
         if ($request->hasFile('thumbnail')) {
             $image = $request->file('thumbnail');
             $path = '/uploads/category/';
-            $old_path = $category->thumbnail;
+            $old_path = public_path($category->thumbnail);
         }
 
         $category->update([
@@ -134,6 +134,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+
+        if (file_exists(public_path($category->thumbnail))) {
+            unlink(public_path($category->thumbnail));
+        }
+
         $category->delete();
 
         return back()->with('toast_success', 'Category Deleted Successfully!');
