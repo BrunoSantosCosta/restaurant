@@ -20,6 +20,7 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
+
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
     <script>
@@ -66,6 +67,9 @@
   <script src="{{ asset('assets/js/stisla.js') }}"></script>
 
   <!-- JS Libraies -->
+  <script src="{{ asset('assets/modules/summernote/summernote-bs4.js') }}"></script>
+  <script src="{{ asset('assets/modules/jquery-selectric/jquery.selectric.min.js') }}"></script>
+  <script src="{{ asset('assets/modules/upload-preview/assets/js/jquery.uploadPreview.min.js') }}"></script>
 
   <!-- Page Specific JS File -->
   @yield('scripts')
