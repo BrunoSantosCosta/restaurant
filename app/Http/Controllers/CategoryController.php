@@ -62,9 +62,9 @@ class CategoryController extends Controller
         ]);
 
         if ($request->type == 0) {
-            return redirect()->route('category.index')->with('toast_success', 'Category Updated Successfully!');
+            return redirect()->route('category.index')->with('toast_success', 'Category Created Successfully!');
         }else{
-            return redirect()->route('category.index')->with('toast_success', 'Category Updated Successfully!');
+            return redirect()->route('category.index')->with('toast_success', 'Category Created Successfully!');
         }
     }
 
@@ -87,7 +87,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $page_title = 'Category Edit';
+        return view('category.edit', compact('page_title', 'category'));
     }
 
     /**
@@ -99,7 +100,30 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'type' => 'required'
+        ]);
+
+        if ($request->hasFile('thumbnail')) {
+            $image = $request->file('thumbnail');
+            $path = '/uploads/category/';
+            $old_path = $category->thumbnail;
+        }
+
+        $category->update([
+            'name' => $request->name,
+            'thumbnail' => $request->hasFile('thumbnail') ? uploadImage($image, $path, $old_path): $category->thumbnail,
+            'type' => $request->type
+        ]);
+
+        if($category->type == 0) {
+            return redirect(route('category.index').'?type=menu')->with('toast_success', 'Category Updated Successfully!');
+
+        } else {
+            return redirect(route('category.index').'?type=blog')->with('toast_success', 'Category Updated Successfully!');
+        }
+
     }
 
     /**
@@ -110,6 +134,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return back()->with('toast_success', 'Category Deleted Successfully!');
     }
 }
