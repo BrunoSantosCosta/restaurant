@@ -46,6 +46,9 @@
       <!-- Sidebar Included -->
       @include('partials.sidebar')
 
+      <!-- Alert Included -->
+      @include('sweetalert::alert')
+
       <!-- Main Content -->
       <div class="main-content">
         @yield('content')
