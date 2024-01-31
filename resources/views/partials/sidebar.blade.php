@@ -13,15 +13,15 @@
 
         </li>
         <li class="menu-header">Starter</li>
-        <li class="dropdown">
+        <li class="dropdown {{ request()->routeIs('category.*') ? 'active':'' }}">
             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                 <i class="fas fa-columns"></i>
                 <span>Category</span>
             </a>
             <ul class="dropdown-menu">
-            <li><a class="nav-link" href="{{ route('category.index') }}">Menu Category</a></li>
-            <li><a class="nav-link" href="{{ route('category.index').'?type=blog' }}">Blog category</a></li>
-            <li><a class="nav-link" href="{{ route('category.create') }}">Category Create</a></li>
+            <li class="{{ request('type') == 'menu'? 'active' : '' }}"><a class="nav-link" href="{{ route('category.index').'?type=menu' }}">Menu Category</a></li>
+            <li class="{{ request('type') == 'blog'? 'active' : '' }}"><a class="nav-link" href="{{ route('category.index').'?type=blog' }}">Blog category</a></li>
+            <li class="{{ request()->routeIs('category.create') ? 'active' : '' }}"><a class="nav-link" href="{{ route('category.create') }}">Category Create</a></li>
         </ul>
         </li>
         </ul>
