@@ -15,6 +15,7 @@
                                 <th>Thumnail</th>
                                 <th>Title</th>
                                 <th>Category</th>
+                                <th>price</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -26,8 +27,9 @@
                                     <td>
                                         <img src="{{ asset($item->thumbnail) }}" alt="{{ $item->name }}" width="60">
                                     </td>
+                                    <td>{{ $item->category->name }}</td>
                                     <td>{{ $item->title }}</td>
-                                    <td>{{ $item->category }}</td>
+                                    <td>R$ {{ $item->price }}</td>
                                     <td><span class="badge {{ $item->status == 1 ? 'badge-primary':'badge-warning' }}"></span> {{ $item->status == 1 ? 'Published' : 'Draft' }}</td>
                                     <td>
                                         <a class="btn btn-primary" href="{{ route('category.edit', $item->id) }}">Edit</a>
