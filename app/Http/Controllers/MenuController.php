@@ -29,7 +29,7 @@ class MenuController extends Controller
     public function create()
     {
    //
-   $page_title = 'Menu List';
+   $page_title = 'Menu Create';
    $categories = Category::where('type', 0)->get();
 
 
@@ -44,7 +44,28 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'category_id' => 'required',
+            'title' => 'required',
+            'thumbnail' => 'required|mimes:jpg,jpeg,png',
+            'description' => 'required',
+            'price' => 'required',
+            'status' => 'required',
+        ]);
+
+        $image = $request->file('thumbnail');
+        $path = '/uploads/menu/';
+
+        Menu::create([
+            'category_id' => $request->category_id,
+            'title' => $request->title,
+            'thumbnail' => uploadImage($image, $path),
+            'description' => $request->description,
+            'price' => $request->price,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('menu.index')->with('toast_success', 'Menu Added Successfully.');
     }
 
     /**

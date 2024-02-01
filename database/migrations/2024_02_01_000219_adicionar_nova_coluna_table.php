@@ -13,19 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('menus', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('category_id');
-            $table->string('title');
-            $table->string('thumbnail');
-            $table->text('description');
-            $table->string('price');
-
-            $table->timestamps();
+        Schema::table('menus', function (Blueprint $table) {
+            $table->integer('status');
         });
-
-
-
     }
 
     /**
@@ -35,6 +25,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menus');
+        //
     }
 };
