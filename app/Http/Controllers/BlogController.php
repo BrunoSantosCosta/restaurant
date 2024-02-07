@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+
 class BlogController extends Controller
 {
     /**
@@ -15,8 +16,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
-        $page_title = 'Blog List';
+        $page_title = "Blog List";
         $blogs = Blog::all();
 
         return view('blog.index', compact('page_title', 'blogs'));
@@ -29,12 +29,10 @@ class BlogController extends Controller
      */
     public function create()
     {
-   //
-   $page_title = 'Blog Create';
-   $categories = Category::where('type', 1)->get();
+        $page_title = "Blog Create";
+        $categories = Category::where('type', 1)->get();
 
-
-   return view('blog.create', compact('page_title', 'categories'));
+        return view('blog.create', compact('page_title', 'categories'));
     }
 
     /**
@@ -54,7 +52,7 @@ class BlogController extends Controller
         ]);
 
         $image = $request->file('thumbnail');
-        $path = '/uploads/blog/';
+        $path = 'uploads/blog/';
 
         Blog::create([
             'category_id' => $request->category_id,
@@ -87,12 +85,12 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        $page_title = 'Blog Edit';
+        $page_title = "Blog Edit";
         $categories = Category::where('type', 1)->get();
-
 
         return view('blog.edit', compact('page_title', 'categories', 'blog'));
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -105,7 +103,7 @@ class BlogController extends Controller
         $request->validate([
             'category_id' => 'required',
             'title' => 'required',
-            'thumbnail' => 'required|mimes:jpg,jpeg,png',
+            'thumbnail' => 'mimes:jpg,jpeg,png',
             'description' => 'required',
             'status' => 'required',
         ]);
@@ -119,13 +117,13 @@ class BlogController extends Controller
         $blog->update([
             'category_id' => $request->category_id,
             'title' => $request->title,
-            'thumbnail' => $request->hasFile('thumbnail') ? uploadImage($image, $path, $old_path) : $blog->thumbnail,
+            'thumbnail' => $request->hasFile('thumbnail') ? uploadImage($image, $path, $old_path):$blog->thumbnail,
             'description' => $request->description,
             'user_id' => Auth::user()->id,
             'status' => $request->status,
         ]);
 
-        return redirect()->route('blog.index')->with('toast_success', 'Blog Update Successfully.');
+        return redirect()->route('blog.index')->with('toast_success', 'Blog Updated Successfully.');
     }
 
     /**
@@ -140,7 +138,6 @@ class BlogController extends Controller
             unlink(public_path($blog->thumbnail));
         }
         $blog->delete();
-
         return back()->with('toast_success', 'Blog Deleted Successfully.');
     }
 }
