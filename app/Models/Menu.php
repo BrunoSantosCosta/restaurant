@@ -15,11 +15,11 @@ class Menu extends Model
         'thumbnail',
         'description',
         'price',
-        'status',
+        'status'
     ];
 
     public function category()
     {
-      return  $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class);
     }
 }

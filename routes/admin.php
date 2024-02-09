@@ -9,5 +9,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::resource('/menu',  \App\Http\Controllers\MenuController::class, ['names' => 'menu']);
     Route::resource('/blog',  \App\Http\Controllers\BlogController::class, ['names' => 'blog']);
     Route::resource('/gallery',  \App\Http\Controllers\GalleryController::class, ['names' => 'gallery']);
+    Route::resource('/slider',  \App\Http\Controllers\SliderController::class, ['names' => 'slider']);
+
 });
 
