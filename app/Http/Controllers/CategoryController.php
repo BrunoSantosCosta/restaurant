@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $page_title =  'Category List';
+        $page_title =  'Lista - Categorias';
 
         if (request('type') == 'blog') {
             $categories = Category::where('type', 1)->get();
@@ -32,7 +32,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $page_title =  'Category Create';
+        $page_title =  'Criar categoria';
 
         return view('category.create', compact('page_title'));
     }
@@ -62,9 +62,9 @@ class CategoryController extends Controller
         ]);
 
         if ($request->type == 0) {
-            return redirect()->route('category.index')->with('toast_success', 'Category Created Successfully!');
+            return redirect()->route('category.index')->with('toast_success', 'Categoria criada Com Sucesso!');
         }else{
-            return redirect()->route('category.index')->with('toast_success', 'Category Created Successfully!');
+            return redirect()->route('category.index')->with('toast_success', 'Categoria criada Com Sucesso!');
         }
     }
 
@@ -87,7 +87,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $page_title = 'Category Edit';
+        $page_title = 'Editar Categoria';
         return view('category.edit', compact('page_title', 'category'));
     }
 
@@ -118,10 +118,10 @@ class CategoryController extends Controller
         ]);
 
         if($category->type == 0) {
-            return redirect(route('category.index').'?type=menu')->with('toast_success', 'Category Updated Successfully!');
+            return redirect(route('category.index').'?type=menu')->with('toast_success', 'Categoria Atualizada Com Sucesso!');
 
         } else {
-            return redirect(route('category.index').'?type=blog')->with('toast_success', 'Category Updated Successfully!');
+            return redirect(route('category.index').'?type=blog')->with('toast_success', 'Categoria Atualizada Com Sucesso!');
         }
 
     }
@@ -141,6 +141,6 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return back()->with('toast_success', 'Category Deleted Successfully!');
+        return back()->with('toast_success', 'Categoria Excluída Com Sucesso!');
     }
 }

@@ -1,5 +1,5 @@
 @extends('layouts.backend')
-@section('title', 'Gallery List')
+@section('title', 'Lista - Galeria')
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -11,11 +11,11 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Sl No.</th>
-                                <th>Thumnail</th>
-                                <th>Caption</th>
-                                <th>Type</th>
-                                <th>Action</th>
+                                <th>#</th>
+                                <th>Imagem</th>
+                                <th>Descrição</th>
+                                <th>Tipo</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -23,14 +23,14 @@
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>
-                                        <img src="{{ asset($item->thumbnail) }}" alt="{{ $item->name }}" width="60">
+                                        <img src="{{ asset($item->thumbnail) }}" alt="{{ $item->name }}" width="60" style="padding-bottom:5px;padding-top:5px;">
                                     </td>
                                     <td>{{ $item->caption }}</td>
-                                    <td><span class="badge {{ $item->type == 1 ? 'badge-primary':'badge-warning' }}">{{ $item->type == 1 ? 'Video':'Photo' }}</span></td>
+                                    <td><span class="badge {{ $item->type == 1 ? 'badge-primary':'badge-warning' }}">{{ $item->type == 1 ? 'Vídeo':'Imagem' }}</span></td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('gallery.edit', $item->id) }}">Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('gallery.edit', $item->id) }}">Editar</a>
                                         <button class="btn btn-danger delete" type="button" id="{{ $item->id }}" class="btn btn-primary"
-                                            data-toggle="modal" data-target="#exampleModal">Delete</button>
+                                            data-toggle="modal" data-target="#exampleModal">Excluir</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -55,7 +55,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Are you sure want to delete this item?
+                        Tem certeza de que deseja excluir este item?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>

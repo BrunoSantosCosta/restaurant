@@ -1,5 +1,5 @@
 @extends('layouts.backend')
-@section('title', 'Menu List')
+@section('title', 'Produto - Lista')
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -11,13 +11,13 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Sl No.</th>
-                                <th>Thumnail</th>
-                                <th>Title</th>
-                                <th>Category</th>
-                                <th>Price</th>
+                                <th>#</th>
+                                <th>Imagem</th>
+                                <th>Título</th>
+                                <th>Categoria</th>
+                                <th>Preço</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -25,16 +25,16 @@
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>
-                                        <img src="{{ asset($item->thumbnail) }}" alt="{{ $item->name }}" width="60">
+                                        <img src="{{ asset($item->thumbnail) }}" alt="{{ $item->name }}" width="60" style="padding-bottom:5px;padding-top:5px;">
                                     </td>
                                     <td>{{ $item->title }}</td>
                                     <td>{{ $item->category->name }}</td>
-                                    <td>${{ $item->price }}</td>
-                                    <td><span class="badge {{ $item->status == 1 ? 'badge-primary':'badge-warning' }}">{{ $item->status == 1 ? 'Published':'Draft' }}</span></td>
+                                    <td>R$ {{ $item->price }}</td>
+                                    <td><span class="badge {{ $item->status == 1 ? 'badge-primary':'badge-warning' }}">{{ $item->status == 1 ? 'Publicado':'Inativo' }}</span></td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('menu.edit', $item->id) }}">Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('menu.edit', $item->id) }}">Editar</a>
                                         <button class="btn btn-danger delete" type="button" id="{{ $item->id }}" class="btn btn-primary"
-                                            data-toggle="modal" data-target="#exampleModal">Delete</button>
+                                            data-toggle="modal" data-target="#exampleModal">Excluir</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -59,7 +59,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Are you sure want to delete this item?
+                        Tem certeza de que deseja excluir este item?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>

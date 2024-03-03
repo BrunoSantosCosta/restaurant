@@ -14,7 +14,7 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $page_title = "Slider Image";
+        $page_title = "Lista - Slide";
         $sliders = Slider::all();
         return view('slider.index', compact('page_title', 'sliders'));
     }
@@ -26,7 +26,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        $page_title = "Slider Create";
+        $page_title = "Criar Slide";
         return view('slider.create', compact('page_title'));
     }
 
@@ -75,7 +75,7 @@ class SliderController extends Controller
      */
     public function edit(Slider $slider)
     {
-        $page_title = "Slider Create";
+        $page_title = "Editar Slide";
         return view('slider.edit', compact('page_title', 'slider'));
     }
 

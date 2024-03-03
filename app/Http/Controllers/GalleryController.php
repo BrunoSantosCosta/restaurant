@@ -14,7 +14,7 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $page_title =  'Gallery List';
+        $page_title =  'Lista - Galeria';
 
         if (request('type') == 'photo') {
             $galleries = Gallery::where('type', 0)->get();
@@ -33,7 +33,7 @@ class GalleryController extends Controller
      */
     public function create()
     {
-        $page_title = "Gallery Create";
+        $page_title = "Criar Galeria";
 
         return view('gallery.create', compact('page_title'));
     }
@@ -94,7 +94,7 @@ class GalleryController extends Controller
      */
     public function edit(Gallery $gallery)
     {
-        $page_title = "Gallery Edit";
+        $page_title = "Editar Galeria";
         return view('gallery.edit', compact('page_title', 'gallery'));
     }
 

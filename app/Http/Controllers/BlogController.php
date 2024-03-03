@@ -16,7 +16,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $page_title = "Blog List";
+        $page_title = "Lista - Blog";
         $blogs = Blog::all();
 
         return view('blog.index', compact('page_title', 'blogs'));
@@ -29,7 +29,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        $page_title = "Blog Create";
+        $page_title = "Criar Blog";
         $categories = Category::where('type', 1)->get();
 
         return view('blog.create', compact('page_title', 'categories'));
@@ -85,7 +85,7 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        $page_title = "Blog Edit";
+        $page_title = "Editar Blog";
         $categories = Category::where('type', 1)->get();
 
         return view('blog.edit', compact('page_title', 'categories', 'blog'));
