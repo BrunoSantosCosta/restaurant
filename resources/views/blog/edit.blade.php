@@ -1,5 +1,5 @@
 @extends('layouts.backend')
-@section('title', 'Blog Edit')
+@section('title', 'Editar Blog')
 @section('content')
     <div class="card">
         <form action="{{ route('blog.update', $blog->id) }}" method="POST" enctype="multipart/form-data">
@@ -10,13 +10,13 @@
             </div>
             <div class="card-body">
                 <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Título</label>
                     <div class="col-sm-12 col-md-7">
                         <input type="text" class="form-control" name="title" value="{{ $blog->title }}">
                     </div>
                 </div>
                 <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Categoria</label>
                     <div class="col-sm-12 col-md-7">
                         <select name="category_id" class="form-control selectric">
                             @foreach ($categories as $item)
@@ -30,16 +30,16 @@
                     </div>
                 </div>
                 <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Description</label>
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Descrição</label>
                     <div class="col-sm-12 col-md-7">
-                        <textarea name="description" class="summernote-simple">{{ $blog->description }}"</textarea>
+                        <textarea name="description" class="summernote-simple">{{ $blog->description }}</textarea>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thumbnail</label>
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Imagem</label>
                     <div class="col-sm-12 col-md-7">
                         <div style="background-image: url({{ asset($blog->thumbnail) }});background-size: cover; background-position: center;" id="image-preview" class="image-preview">
-                            <label for="image-upload" id="image-label">Choose File</label>
+                            <label for="image-upload" id="image-label">Escolher Arquivo</label>
                             <input type="file" name="thumbnail" id="image-upload" />
                         </div>
                     </div>
@@ -48,14 +48,14 @@
                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
                     <div class="col-sm-12 col-md-7">
                         <select class="form-control selectric" name="status">
-                            <option {{ $blog->status == 1 ? 'checked':'' }} value="1">Publish</option>
-                            <option {{ $blog->status == 0 ? 'checked':'' }} value="0">Draft</option>
+                            <option {{ $blog->status == 1 ? 'checked':'' }} value="1">Publicado</option>
+                            <option {{ $blog->status == 0 ? 'checked':'' }} value="0">Inativo</option>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Enviar</button>
             </div>
         </form>
     </div>

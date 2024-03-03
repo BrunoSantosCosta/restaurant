@@ -15,7 +15,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $page_title = "Menu List";
+        $page_title = "Lista - Produtos";
         $menues = Menu::all();
 
         return view('menu.index', compact('page_title', 'menues'));
@@ -28,7 +28,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        $page_title = "Menu Create";
+        $page_title = "Criar Produto";
         $categories = Category::where('type', 0)->get();
 
         return view('menu.create', compact('page_title', 'categories'));
@@ -63,7 +63,7 @@ class MenuController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('menu.index')->with('toast_success', 'Menu Added Successfully.');
+        return redirect()->route('menu.index')->with('toast_success', 'Produto Adicionado com Sucesso.');
     }
 
     /**
@@ -85,7 +85,7 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
-        $page_title = "Menu Edit";
+        $page_title = "Editar Produto";
         $categories = Category::where('type', 0)->get();
 
         return view('menu.edit', compact('page_title', 'categories', 'menu'));

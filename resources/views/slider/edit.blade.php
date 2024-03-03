@@ -1,5 +1,5 @@
 @extends('layouts.backend')
-@section('title', 'Slider Edit')
+@section('title', 'Editar Slide')
 @section('content')
     <div class="card">
         <form action="{{ route('slider.update', $slider->id) }}" method="POST" enctype="multipart/form-data">
@@ -10,29 +10,29 @@
             </div>
             <div class="card-body">
                 <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Título</label>
                     <div class="col-sm-12 col-md-7">
                         <input type="text" class="form-control" name="title" value="{{ $slider->title }}">
                     </div>
                 </div>
                 <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Sub Title</label>
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Sub Título</label>
                     <div class="col-sm-12 col-md-7">
                         <input type="text" class="form-control" name="sub_title" value="{{ $slider->sub_title }}">
                     </div>
                 </div>
                 <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thumbnail</label>
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">imagem</label>
                     <div class="col-sm-12 col-md-7">
                         <div style="background-image: url({{ asset($slider->thumbnail) }});background-size: cover;" id="image-preview" class="image-preview w-100">
-                            <label for="image-upload" id="image-label">Choose File</label>
+                            <label for="image-upload" id="image-label">Escolher Arquivo</label>
                             <input type="file" name="thumbnail" id="image-upload" />
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Enviar</button>
             </div>
         </form>
     </div>
