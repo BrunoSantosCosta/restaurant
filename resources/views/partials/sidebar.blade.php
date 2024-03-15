@@ -26,16 +26,19 @@
                     <span>Produto</span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="{{ request()->routeIs('menu.index') ? 'active' : '' }}"><a class="nav-link" href="{{ route('menu.index') }}">Produto - Lista</a></li>
-                    <li class="{{ request()->routeIs('menu.create') ? 'active' : '' }}"><a class="nav-link" href="{{ route('menu.create') }}">Criar Produto</a></li>
+                    <li class="{{ request()->routeIs('product.index') ? 'active' : '' }}"><a class="nav-link" href="{{ route('product.index') }}">Produto - Lista</a></li>
+                    <li class="{{ request()->routeIs('productCategory.index') ? 'active' : '' }}"><a class="nav-link" href="{{ route('productCategory.index') }}">Produto - Categorias</a></li>
+                    <li class="{{ request()->routeIs('productAddon.index') ? 'active' : '' }}"><a class="nav-link" href="{{ route('productAddon.index') }}">Produto - Adicionais</a></li>
                 </ul>
             </li>
             <li class="dropdown {{ request()->routeIs('blog.*') ? 'active':'' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Blog</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ request()->routeIs('blog.index') ? 'active':'' }}"><a class="nav-link" href="{{ route('blog.index') }}">Lista - Blog</a></li>
-                    <li class="{{ request()->routeIs('blog.create') ? 'active':'' }}"><a class="nav-link" href="{{ route('blog.create') }}">Criar Blog</a></li>
+                    <li class="{{ request()->routeIs('blog.index') ? 'active':'' }}"><a class="nav-link" href="{{ route('blog.index') }}">Blog - Lista</a></li>
+                    <li class="{{ request()->routeIs('blogCategory.index') ? 'active':'' }}"><a class="nav-link" href="{{ route('blogCategory.index') }}">Blog - Categorias</a></li>
+
+                    {{-- <li class="{{ request()->routeIs('blog.create') ? 'active':'' }}"><a class="nav-link" href="{{ route('blog.create') }}">Criar Blog</a></li> --}}
                 </ul>
             </li>
             <li class="dropdown {{ request()->routeIs('gallery.*') ? 'active':'' }}">

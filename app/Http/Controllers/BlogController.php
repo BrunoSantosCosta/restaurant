@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\BlogCategory;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,7 @@ class BlogController extends Controller
     public function create()
     {
         $page_title = "Criar Blog";
-        $categories = Category::where('type', 1)->get();
+        $categories = BlogCategory::all();
 
         return view('blog.create', compact('page_title', 'categories'));
     }
@@ -86,7 +87,7 @@ class BlogController extends Controller
     public function edit(Blog $blog)
     {
         $page_title = "Editar Blog";
-        $categories = Category::where('type', 1)->get();
+        $categories = BlogCategory::all();
 
         return view('blog.edit', compact('page_title', 'categories', 'blog'));
     }

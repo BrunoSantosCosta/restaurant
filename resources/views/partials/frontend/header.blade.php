@@ -36,7 +36,7 @@
                     <a href="{{ route('about') }}" class="show-submenu">Sobre Nós</a>
                 </li>
                 <li class="submenu">
-                    <a href="{{ route('menu') }}" class="show-submenu">Produto</a>
+                    <a href="{{ route('product') }}" class="show-submenu">Produto</a>
                 </li>
                 <li class="submenu">
                     <a href="#" class="show-submenu">Galeria</a>

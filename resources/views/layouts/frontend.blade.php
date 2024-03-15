@@ -114,7 +114,7 @@
                                 @enderror
 							</div>
 							<div class="form-group mb-2">
-								<input class="btn_1 full-width" type="submit" value="LogIn" id="submit-contact">
+								<input class="btn_1 full-width" type="submit" value="Entrar" id="submit-contact">
 							</div>
 						</form>
 					</div>
