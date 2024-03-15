@@ -1,8 +1,6 @@
-/**
- *
- * You can write your JS code here, DO NOT touch the default style file
- * because it will make it harder for you to update.
- * 
- */
-
-"use strict";
+function formatarMoeda() {
+    let input = document.getElementById('priceInput');
+    let value = input.value.replace(/\D/g, '');
+    value = (value / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    input.value = value;
+}

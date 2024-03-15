@@ -51,9 +51,9 @@
                     </select>
                 </div>
             </div>
-        </div>
-        <div claszps="card-footer">
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <div claszps="card-footer">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
         </div>
     </form>
 </div>

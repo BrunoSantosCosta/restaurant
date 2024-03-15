@@ -62,7 +62,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Lista De Pedidoss</h4>
+                    <h4>Lista De Pedidos</h4>
                     <div class="card-header-action">
                         <a href="{{ route('admin.order') }}" class="btn btn-danger">Todos os Pedidos <i class="fas fa-chevron-right"></i></a>
                     </div>

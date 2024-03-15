@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogCategory;
+use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 use App\Models\Slider;
-use App\Models\Menu;
 use App\Models\Gallery;
 use App\Models\Blog;
 use App\Models\Category;
@@ -24,16 +26,17 @@ class HomeController extends Controller
     public function index()
     {
         $sliders = Slider::all();
-        $menus = Menu::orderBy('id', 'DESC')->limit(8)->get();
-        return view('home', compact('sliders', 'menus'));
+        $products = Product::orderBy('id', 'DESC')->limit(8)->get();
+        $productCategories = ProductCategory::all();
+        return view('home', compact('sliders', 'products', 'productCategories'));
     }
 
-    public function menu()
+    public function product()
     {
-        $starters = Menu::orderBy('price')->limit(4)->get();
-        $menus = Menu::orderBy('id', 'DESC')->get();
+        $starters = Product::orderBy('price')->limit(4)->get();
+        $products = Product::orderBy('id', 'DESC')->get();
 
-        return view('frontend.menu', compact('menus', 'starters'));
+        return view('frontend.product', compact('products', 'starters'));
     }
 
     public function gallery($type)
@@ -69,7 +72,7 @@ class HomeController extends Controller
     public function getCategoryBlogs($id)
     {
         $blogs = Blog::where('category_id', $id)->get();
-        $categories = Category::where('type', 1)->get();
+        $categories = BlogCategory::all();
         $latests = Blog::latest('created_at')->limit(3)->get();
 
         return view('frontend.blog.index', compact('blogs', 'latests', 'categories'));
@@ -101,4 +104,12 @@ class HomeController extends Controller
 
         return back()->with('success', 'Your message has sent!');
     }
+
+    // public function ProductCategories()
+    // {
+    //     // $services = Service::limit(4)->get();
+    //     $productCategories = ProductCategory::all();
+
+    //     return view('frontend.about', compact('productCategories'));
+    // }
 }

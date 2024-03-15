@@ -17,9 +17,4 @@ class Menu extends Model
         'price',
         'status'
     ];
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
 }

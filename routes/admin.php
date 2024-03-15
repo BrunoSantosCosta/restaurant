@@ -4,9 +4,16 @@
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/', [\App\Http\Controllers\Backend\HomeController::class, 'index'])->name('admin.home');
     // Category routes
-    Route::resource('/category', \App\Http\Controllers\CategoryController::class, ['names' => 'category']);
-    // Menu routes
-    Route::resource('/menu', \App\Http\Controllers\MenuController::class, ['names' => 'menu']);
+    // Route::resource('/category', \App\Http\Controllers\CategoryController::class, ['names' => 'category']);
+    // Category routes
+    Route::resource('/productCategory', \App\Http\Controllers\ProductCategoryController::class, ['names' => 'productCategory']);
+    Route::resource('/blogCategory', \App\Http\Controllers\BlogCategoryController::class, ['names' => 'blogCategory']);
+
+    // Products routes
+    Route::resource('/product', \App\Http\Controllers\ProductController::class, ['names' => 'product']);
+
+    // Accompaniment routes
+    Route::resource('/productAddon', \App\Http\Controllers\ProductAddonController::class, ['names' => 'productAddon']);
     // Service routes
     Route::resource('/service', \App\Http\Controllers\ServiceController::class, ['names' => 'service']);
     // Staff routes

@@ -60,13 +60,13 @@
                                                     $total = 0;
                                                 @endphp
                                                 @foreach ($item->details as $order)
-                                                @php
-                                                    $total += $order->price * $order->quantity;
-                                                @endphp
+                                                    @php
+                                                        $total += $order->price * $order->quantity;
+                                                    @endphp
                                                     <tr>
                                                         <td>{{ $loop->index + 1 }}</td>
                                                         <td>
-                                                            <img width="60" style="padding-bottom:5px;padding-top:5px;" src="{{ asset($order->menu->thumbnail) }}" alt="thumbnail">
+                                                            <img width="60" style="padding-bottom:5px;padding-top:5px;" src"" alt="thumbnail">
                                                         </td>
                                                         <td>{{ $order->quantity }}</td>
                                                         <td>{{ $order->price }}</td>

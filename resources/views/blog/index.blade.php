@@ -4,8 +4,9 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h4>{{ $page_title }}</h4>
+                <div class="card-header d-flex justify-content-between">
+                    <h4 class="col-6">{{ $page_title }}</h4>
+                    <a class="btn btn-success" href="{{ route('blog.create') }}">Adicionar Blog +</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -13,9 +14,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Imagem</th>
-                                <th>Títutlo</th>
+                                <th>Título</th>
                                 <th>Categoria</th>
-                                <th>Usuario</th>
                                 <th>Status</th>
                                 <th>Ações</th>
                             </tr>
@@ -27,9 +27,8 @@
                                     <td>
                                         <img src="{{ asset($item->thumbnail) }}" alt="{{ $item->name }}" width="60" style="padding-bottom:5px;padding-top:5px;">
                                     </td>
-                                    <td>{{ $item->category->name }}</td>
                                     <td>{{ $item->title }}</td>
-                                    <td>{{ $item->user->name }}</td>
+                                    <td>{{ $item->category->name }}</td>
                                     <td><span class="badge {{ $item->status == 1 ? 'badge-primary':'badge-warning' }}"></span> {{ $item->status == 1 ? 'Publicado' : 'Inativo' }}</td>
                                     <td>
                                         <a class="btn btn-primary" href="{{ route('blog.edit', $item->id) }}">Editar</a>

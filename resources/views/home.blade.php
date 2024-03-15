@@ -184,6 +184,44 @@
     </div>
     <!-- /container -->
 </div>
+
+
+<section class="container margin_120_100">
+    <div class="row">
+        @foreach ($productCategories as $item)
+            <div class="col-xl-3">
+                <a href="#" class="img_container">
+                    <img src="{{ $item->thumbnail }}" class="lazy">
+                    <div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+                        <h3>{{ $item->name }}</h3>
+                    </div>
+                </a>
+            </div>
+        @endforeach
+
+    </div>
+
+    {{-- @foreach ($sliders as $slider)
+    <div class="owl-slide cover lazy" data-bg="url({{ asset($slider->thumbnail) }})">
+        <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 m-auto static">
+                        <div class="slide-text white text-center">
+                            <h2 class="owl-slide-animated owl-slide-title">{{ $slider->title }}</h2>
+                            <p class="owl-slide-animated owl-slide-subtitle">
+                                {{ $slider->sub_title }}
+                            </p>
+                            <div class="owl-slide-animated owl-slide-cta"><a class="btn_1 btn_scroll"
+                                    href="#" role="button">Ver Cardápio</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach --}}
+</section>
 <!-- /bg_gray -->
 
 <div class="call_section lazy">
