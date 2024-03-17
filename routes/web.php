@@ -18,6 +18,8 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/product', [App\Http\Controllers\HomeController::class, 'product'])->name('product');
+Route::get('/productCategories', [App\Http\Controllers\HomeController::class, 'getProductCategories'])->name('product.categories');
+Route::get('/productDetails/{id}', [App\Http\Controllers\HomeController::class, 'getProductDetails'])->name('product.details');
 Route::post('/mail', [App\Http\Controllers\HomeController::class, 'mail'])->name('mail');
 Route::get('/carts/{user}', [App\Http\Controllers\CartController::class, 'getCart'])->name('getcart');
 Route::post('/cart/update/{user}', [App\Http\Controllers\CartController::class, 'updateCart'])->name('cart.update');

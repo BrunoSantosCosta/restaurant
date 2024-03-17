@@ -190,7 +190,7 @@
     <div class="row">
         @foreach ($productCategories as $item)
             <div class="col-xl-3">
-                <a href="#" class="img_container">
+                <a href="{{ route('product.categories') }}" class="img_container">
                     <img src="{{ $item->thumbnail }}" class="lazy">
                     <div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                         <h3>{{ $item->name }}</h3>

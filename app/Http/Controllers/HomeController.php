@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\BlogCategory;
 use App\Models\Product;
+use App\Models\ProductAddon;
 use App\Models\ProductCategory;
+use App\Models\ProductsProductsAddon;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 use App\Models\Slider;
@@ -105,11 +107,26 @@ class HomeController extends Controller
         return back()->with('success', 'Your message has sent!');
     }
 
-    // public function ProductCategories()
-    // {
-    //     // $services = Service::limit(4)->get();
-    //     $productCategories = ProductCategory::all();
+    public function getProductCategories()
+    {
+        $productCategories = ProductCategory::with('products')->get();
+        return view('frontend.productCategories.index', compact('productCategories'));
+    }
 
-    //     return view('frontend.about', compact('productCategories'));
-    // }
+    public function getProductDetails($id)
+    {
+        $product = Product::findOrFail($id);
+        $addons =  ProductsProductsAddon::where('id_product', $product->id)->get();
+        $addonIds = $addons->pluck('id_addon');
+
+        foreach ($addons as $addon) {
+            $idAddon = $addon->id_addon;
+        }
+
+        $addonIds = ProductsProductsAddon::where('id_product', $product->id)->pluck('id_addon');
+
+        $addons = ProductAddon::whereIn('id', $addonIds)->get();
+        return view('frontend.productDetails.index', compact('product', 'addons'));
+    }
+
 }

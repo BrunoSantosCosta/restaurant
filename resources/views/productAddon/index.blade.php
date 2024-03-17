@@ -23,7 +23,7 @@
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->price }}</td>
+                                    <td>R$ {{ $item->price }}</td>
                                     <td>
                                         <a class="btn btn-primary" href="{{ route('productAddon.edit', $item->id) }}">Editar</a>
                                         <button class="btn btn-danger delete" type="button" id="{{ $item->id }}" class="btn btn-primary"
@@ -69,7 +69,7 @@
     <script>
         $('.delete').on('click', function () {
             const id = this.id;
-            $('#deleteModal').attr('action', "{{ route('productCategory.destroy', '') }}" + '/' + id);
+            $('#deleteModal').attr('action', "{{ route('productAddon.destroy', '') }}" + '/' + id);
         });
     </script>
 @endsection

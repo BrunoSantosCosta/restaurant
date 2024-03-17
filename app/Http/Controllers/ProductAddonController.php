@@ -39,14 +39,27 @@ class ProductAddonController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required',
             'price' => 'required',
         ]);
+        $string = $request->price;
+        $price = str_replace(["R$\u{A0}", "."], "", $string);
+        $price = str_replace(",", ".", $price);
+        // echo $price;
+        // dd($price);
+        $price = (float) $price;
 
+        // Verificar se o preço é maior que 999.99
+
+        // dd($price);
+        if ($price > 999.99) {
+            return redirect()->route('productAddon.create')->with('toast_error', 'Valor do adicional não pode passar de R$ 999,99!');
+        }
         ProductAddon::create([
             'name' => $request->name,
-            'price' => $request->price,
+            'price' => $price,
         ]);
 
         return redirect()->route('productAddon.index')->with('toast_success', 'Adicional criado Com Sucesso!');
@@ -92,8 +105,10 @@ class ProductAddonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ProductAddon $productAddon)
     {
-        //
+
+        $productAddon->delete();
+        return back()->with('toast_success', 'Produto Excluido com Sucesso.');
     }
 }
