@@ -30,10 +30,4 @@
     </form>
 </div>
 
-
 @endsection
-{{-- @section('scripts')
-<script>
-
-    </script>
-@endsection --}}

@@ -101,10 +101,10 @@ class ProductController extends Controller
     {
         $page_title = "Editar Produto";
         $productCategories = ProductCategory::all();
-        $product = Product::find(48);
+        $product = Product::find($product->id);
         $addons = ProductAddon::all();
 
-        $productAddons = ProductsProductsAddon::where('id_product', 48)->pluck('id_addon')->toArray();
+        $productAddons = ProductsProductsAddon::where('id_product', $product->id)->pluck('id_addon')->toArray();
 
         return view('product.edit', compact('page_title', 'product', 'productCategories', 'addons', 'productAddons'));
     }
@@ -143,21 +143,21 @@ class ProductController extends Controller
         ]);
         // dd($request->request);
 
-        $product = Product::findOrFail(48);
+        $product = Product::findOrFail($product->id);
         $productAddons = $request->input('addons', []);
 
         // Obter os addons do produto a partir do banco de dados
-        $currentAddons = ProductsProductsAddon::where('id_product', 48)->pluck('id_addon')->toArray();
+        $currentAddons = ProductsProductsAddon::where('id_product', $product->id)->pluck('id_addon')->toArray();
 
         // Remover os addons desmarcados
         $removedAddons = array_diff($currentAddons, $productAddons);
-        ProductsProductsAddon::where('id_product', 48)->whereIn('id_addon', $removedAddons)->delete();
+        ProductsProductsAddon::where('id_product', $product->id)->whereIn('id_addon', $removedAddons)->delete();
 
         // Adicionar os novos addons selecionados
         $newAddons = array_diff($productAddons, $currentAddons);
         foreach ($newAddons as $addonId) {
             ProductsProductsAddon::create([
-                'id_product' => 48,
+                'id_product' => $product->id,
                 'id_addon' => $addonId
             ]);
         }

@@ -24,5 +24,8 @@ class Product extends Model
         return $this->belongsTo(ProductCategory::class);
     }
 
-
+    public function additionals()
+    {
+        return $this->belongsToMany(ProductAddon::class);
+    }
 }
