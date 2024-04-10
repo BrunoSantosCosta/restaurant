@@ -107,6 +107,17 @@ class GalleryController extends Controller
      */
     public function update(Request $request, Gallery $gallery)
     {
+        if ($request->hasFile('thumbnail')) {
+            if ($request->file('thumbnail')->getError() === UPLOAD_ERR_INI_SIZE) {
+                $maxFileSize = ini_get('upload_max_filesize');
+                if ($request->type == 0) {
+                    return redirect(route('gallery.index').'?type=photo')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+                }else{
+                    return redirect(route('gallery.index').'?type=video')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+                }
+            }
+        }
+
         $request->validate([
             'caption' => 'required',
             'thumbnail' => 'mimes:jpg,jpeg,png',

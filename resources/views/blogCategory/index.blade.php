@@ -7,7 +7,7 @@
                 <div class="card-header d-flex justify-content-between">
                     <h4 class="col-6">{{ $page_title }}</h4>
                     <a class="btn btn-success" href="{{ route('blogCategory.create') }}">Adicionar Categoria +</a>
-                </div>\
+                </div>
                 <div class="card-body">
                     <table class="table table-striped">
                         <thead>

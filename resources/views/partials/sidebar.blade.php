@@ -49,7 +49,7 @@
                 <ul class="dropdown-menu">
                     <li class="{{ request('type') == 'photo'? 'active' : '' }}"><a class="nav-link" href="{{ route('gallery.index').'?type=photo' }}">Galeria de Fotos</a></li>
                     <li class="{{ request('type') == 'video'? 'active' : '' }}"><a class="nav-link" href="{{ route('gallery.index').'?type=video' }}">Galeria de Videos</a></li>
-                    <li class="{{ request()->routeIs('gallery.create') ? 'active' : '' }}"><a class="nav-link" href="{{ route('gallery.create') }}">Adicionar Galeria</a></li>
+                    {{-- <li class="{{ request()->routeIs('gallery.create') ? 'active' : '' }}"><a class="nav-link" href="{{ route('gallery.create') }}">Adicionar Galeria</a></li> --}}
                 </ul>
             </li>
             <li class="dropdown {{ request()->routeIs('slider.*') ? 'active':'' }}">
@@ -57,7 +57,7 @@
                     <span>Slider</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ request()->routeIs('slider.index') ? 'active':'' }}"><a class="nav-link" href="{{ route('slider.index') }}">Slider - Lista</a></li>
-                    <li class="{{ request()->routeIs('slider.create') ? 'active':'' }}"><a class="nav-link" href="{{ route('slider.create') }}">Criar Slider</a></li>
+                    {{-- <li class="{{ request()->routeIs('slider.create') ? 'active':'' }}"><a class="nav-link" href="{{ route('slider.create') }}">Criar Slider</a></li> --}}
                 </ul>
             </li>
             <li class="dropdown {{ request()->routeIs('service.*') ? 'active':'' }}">
@@ -65,7 +65,7 @@
                     <span>Serviço</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ request()->routeIs('service.index') ? 'active':'' }}"><a class="nav-link" href="{{ route('service.index') }}">Serviços - Lista</a></li>
-                    <li class="{{ request()->routeIs('service.create') ? 'active':'' }}"><a class="nav-link" href="{{ route('service.create') }}">Criar Serviço</a></li>
+                    {{-- <li class="{{ request()->routeIs('service.create') ? 'active':'' }}"><a class="nav-link" href="{{ route('service.create') }}">Criar Serviço</a></li> --}}
                 </ul>
             </li>
             <li class="dropdown {{ request()->routeIs('staff.*') ? 'active':'' }}">
@@ -73,7 +73,7 @@
                     <span>Funcionários</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ request()->routeIs('staff.index') ? 'active':'' }}"><a class="nav-link" href="{{ route('staff.index') }}">Funcionários - Listar</a></li>
-                    <li class="{{ request()->routeIs('staff.create') ? 'active':'' }}"><a class="nav-link" href="{{ route('staff.create') }}">Funcionários - Criar</a></li>
+                    {{-- <li class="{{ request()->routeIs('staff.create') ? 'active':'' }}"><a class="nav-link" href="{{ route('staff.create') }}">Funcionários - Criar</a></li> --}}
                 </ul>
             </li>
             <li class="{{ request()->routeIs('admin.order') ? 'active':'' }}">

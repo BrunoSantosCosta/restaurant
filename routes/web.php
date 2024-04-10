@@ -24,7 +24,7 @@ Route::post('/mail', [App\Http\Controllers\HomeController::class, 'mail'])->name
 Route::get('/carts/{user}', [App\Http\Controllers\CartController::class, 'getCart'])->name('getcart');
 Route::post('/cart/update/{user}', [App\Http\Controllers\CartController::class, 'updateCart'])->name('cart.update');
 Route::get('/cart/delete/{cart}/{user}', [App\Http\Controllers\CartController::class, 'destroy'])->name('cart.delete');
-Route::get('/cart/{product}/{user}', [App\Http\Controllers\CartController::class, 'addCart'])->name('cart.add');
+Route::post('/cart/{product}/{user}', [App\Http\Controllers\CartController::class, 'addCart'])->name('cart.add');
 Route::get('/order/{user}', [App\Http\Controllers\OrderController::class, 'checkout'])->name('checkout');
 Route::post('/order/{user}', [App\Http\Controllers\OrderController::class, 'order'])->name('order');
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('about');

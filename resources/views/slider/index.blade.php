@@ -4,8 +4,9 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h4>{{ $page_title }}</h4>
+                <div class="card-header d-flex justify-content-between">
+                    <h4 class="col-6">{{ $page_title }}</h4>
+                    <a class="btn btn-success" href="{{ route('slider.create') }}">Adicionar Slider +</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -56,7 +57,7 @@
                         Tem certeza de que deseja excluir este item?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </div>
                 </div>

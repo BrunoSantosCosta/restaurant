@@ -47,6 +47,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->hasFile('thumbnail')) {
+            if ($request->file('thumbnail')->getError() === UPLOAD_ERR_INI_SIZE) {
+                $maxFileSize = ini_get('upload_max_filesize');
+                return redirect()->route('product.index')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+            }
+        }
+
         $request->validate([
             'category_id' => 'required',
             'title' => 'required',
@@ -59,14 +66,17 @@ class ProductController extends Controller
         $image = $request->file('thumbnail');
         $path = 'uploads/product/';
 
-       $product = Product::create([
-            'category_id' => $request->category_id,
-            'title' => $request->title,
-            'thumbnail' => uploadImage($image, $path),
-            'description' => $request->description,
-            'price' => $request->price,
-            'status' => $request->status
-        ]);
+        $string = $request->price;
+        $price = str_replace(["R$\u{A0}", " "], "", $string);
+
+        $product = Product::create([
+                'category_id' => $request->category_id,
+                'title' => $request->title,
+                'thumbnail' => uploadImage($image, $path),
+                'description' => $request->description,
+                'price' => $price,
+                'status' => $request->status
+            ]);
 
         if ($request->request->has('addons')) {
             foreach ($request->request->all()['addons'] as $addon) {
@@ -118,6 +128,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        if ($request->hasFile('thumbnail')) {
+            if ($request->file('thumbnail')->getError() === UPLOAD_ERR_INI_SIZE) {
+                $maxFileSize = ini_get('upload_max_filesize');
+                return redirect()->route('product.index')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+            }
+        }
+
         $request->validate([
             'category_id' => 'required',
             'title' => 'required',
@@ -133,27 +150,26 @@ class ProductController extends Controller
             $old_path = public_path($product->thumbnail);
         }
 
+        $string = $request->price;
+        $price = str_replace(["R$\u{A0}", " "], "", $string);
+
         $product->update([
             'category_id' => $request->category_id,
             'title' => $request->title,
             'thumbnail' => $request->hasFile('thumbnail') ? uploadImage($image, $path, $old_path):$product->thumbnail,
             'description' => $request->description,
-            'price' => $request->price,
+            'price' => $price,
             'status' => $request->status,
         ]);
-        // dd($request->request);
 
         $product = Product::findOrFail($product->id);
         $productAddons = $request->input('addons', []);
 
-        // Obter os addons do produto a partir do banco de dados
         $currentAddons = ProductsProductsAddon::where('id_product', $product->id)->pluck('id_addon')->toArray();
 
-        // Remover os addons desmarcados
         $removedAddons = array_diff($currentAddons, $productAddons);
         ProductsProductsAddon::where('id_product', $product->id)->whereIn('id_addon', $removedAddons)->delete();
 
-        // Adicionar os novos addons selecionados
         $newAddons = array_diff($productAddons, $currentAddons);
         foreach ($newAddons as $addonId) {
             ProductsProductsAddon::create([

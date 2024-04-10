@@ -39,6 +39,13 @@ class BlogCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->hasFile('thumbnail')) {
+            if ($request->file('thumbnail')->getError() === UPLOAD_ERR_INI_SIZE) {
+                $maxFileSize = ini_get('upload_max_filesize');
+                return redirect()->route('blogCategory.index')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+            }
+        }
+
         $request->validate([
             'name' => 'required',
         ]);
@@ -88,6 +95,14 @@ class BlogCategoryController extends Controller
      */
     public function update(Request $request, BlogCategory $blogCategory)
     {
+        if ($request->hasFile('thumbnail')) {
+            if ($request->file('thumbnail')->getError() === UPLOAD_ERR_INI_SIZE) {
+                $maxFileSize = ini_get('upload_max_filesize');
+                return redirect()->route('blogCategory.index')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+            }
+
+        }
+
         $request->validate([
             'name' => 'required',
         ]);

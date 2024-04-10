@@ -3,8 +3,8 @@
 
 @section('breadcrumb')
     <div class="col-xl-9 col-lg-10 col-md-8">
-        <h1>Contact</h1>
-        <p>Cooking delicious and tasty food since</p>
+        <h1>Loja Demonstrativa</h1>
+        <p>Hamburgueria</p>
     </div>
 @endsection
 @section('content')
@@ -14,7 +14,7 @@
             <div class="col-lg-4">
                 <div class="box_contacts">
                     <i class="icon_tag_alt"></i>
-                    <h2>Reservations</h2>
+                    <h2>Contato</h2>
                     <a href="#">{{ $general ? $general->primary_phone:'' }}</a>
                     <a href="#">{{ $general ? $general->email:'' }}</a>
                 </div>
@@ -22,14 +22,14 @@
             <div class="col-lg-4">
                 <div class="box_contacts">
                     <i class="icon_pin_alt"></i>
-                    <h2>Address</h2>
+                    <h2>Endereço</h2>
                     <div>{!! $general ? $general->address:'' !!}</div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="box_contacts">
                     <i class="icon_clock_alt"></i>
-                    <h2>Opening Hours</h2>
+                    <h2>Horarios</h2>
                     <div>MON to FRI 9am-6pm</div>
                     <div>SAT 9am-2pm</div>
                 </div>
@@ -39,26 +39,26 @@
 </div>
 
 <div class="container margin_60_40">
-    <h5 class="mb_5">Drop Us a Line</h5>
+    <h5 class="mb_5">Entre em Contato</h5>
     <div class="row">
         <div class="col-lg-4 col-md-6 add_bottom_25">
             <div id="message-contact"></div>
             <form action="{{ route('mail') }}" method="POST">
                 @csrf
                 <div class="form-group mb-3">
-                    <input class="form-control" type="text" placeholder="Name" id="name_contact"
+                    <input class="form-control" type="text" placeholder="Nome" id="name_contact"
                         name="name">
                 </div>
                 <div class="form-group mb-3">
-                    <input class="form-control" type="email" placeholder="Email" id="email_contact"
+                    <input class="form-control" type="email" placeholder="E-mail" id="email_contact"
                         name="email">
                 </div>
                 <div class="form-group mb-3">
-                    <textarea class="form-control" style="height: 150px;" placeholder="Message"
+                    <textarea class="form-control" style="height: 150px;" placeholder="Menssagem"
                         id="message_contact" name="message"></textarea>
                 </div>
                 <div class="form-group">
-                    <input class="btn_1 full-width" type="submit" value="Submit" id="submit-contact">
+                    <input class="btn_1 full-width" type="submit" value="Enviar" id="submit-contact">
                 </div>
             </form>
         </div>

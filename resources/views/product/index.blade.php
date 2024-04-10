@@ -64,7 +64,7 @@
                         Tem certeza de que deseja excluir este item?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </div>
                 </div>

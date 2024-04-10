@@ -104,7 +104,7 @@
                                 @enderror
 							</div>
 							<div class="form-group mb-5">
-								<label for="password">Password</label>
+								<label for="password">Senha</label>
 								<input class="form-control" type="password" placeholder="Entre Com Sua Senha" id="password"
 									name="password">
 								@error('password')

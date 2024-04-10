@@ -3,8 +3,8 @@
 
 @section('breadcrumb')
     <div class="col-xl-9 col-lg-10 col-md-8">
-        <h1>Blog</h1>
-        <p>Cooking delicious and tasty food since</p>
+        <h1>Loja Demonstrativa</h1>
+        <p>Hamburgueria</p>
     </div>
 @endsection
 
@@ -20,7 +20,7 @@
                                 <article class="blog">
                                     <figure>
                                         <a href="{{ route('get.blog', $blog->id) }}"><img src="{{ asset($blog->thumbnail) }}" alt="">
-                                            <div class="preview"><span>Read more</span></div>
+                                            <div class="preview"><span>Leia Mais</span></div>
                                         </a>
                                     </figure>
                                     <div class="post_info">
