@@ -4576,3 +4576,8 @@ footer .copy {
 .sticky .total_drop a {
     color: #fff;
 }
+
+.swal2-top-end {
+    z-index: 9999999 !important;
+    background-color: red;
+}

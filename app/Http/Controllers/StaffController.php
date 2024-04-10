@@ -40,9 +40,17 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
+
+        if ($request->hasFile('thumbnail')) {
+            if ($request->file('thumbnail')->getError() === UPLOAD_ERR_INI_SIZE) {
+                $maxFileSize = ini_get('upload_max_filesize');
+                return redirect()->route('staff.index')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+            }
+        }
+
         $request->validate([
             'name' => 'required',
-            'thumbnail' => 'required|mimes:jpg,jpeg,png',
+           'thumbnail' => 'required|mimes:jpg,jpeg,png',
             'designation' => 'required'
         ]);
 
@@ -81,6 +89,13 @@ class StaffController extends Controller
      */
     public function update(Request $request, Staff $staff)
     {
+        if ($request->hasFile('thumbnail')) {
+            if ($request->file('thumbnail')->getError() === UPLOAD_ERR_INI_SIZE) {
+                $maxFileSize = ini_get('upload_max_filesize');
+                return redirect()->route('staff.index')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+            }
+        }
+
         $request->validate([
             'name' => 'required',
             'thumbnail' => 'mimes:jpg,jpeg,png',
@@ -89,7 +104,7 @@ class StaffController extends Controller
 
         if ($request->hasFile('thumbnail')) {
             $image = $request->file('thumbnail');
-            $path = 'uploads/menu/';
+            $path = 'uploads/staff/';
             $old_path = public_path($staff->thumbnail);
         }
 

@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use App\Models\Slider;
 use App\Models\Gallery;
 use App\Models\Blog;
-use App\Models\Category;
 use App\Models\Service;
 use App\Models\General;
 use Illuminate\Support\Facades\Mail;
@@ -29,6 +28,7 @@ class HomeController extends Controller
     {
         $sliders = Slider::all();
         $products = Product::orderBy('id', 'DESC')->limit(8)->get();
+
         $productCategories = ProductCategory::all();
         return view('home', compact('sliders', 'products', 'productCategories'));
     }
@@ -55,7 +55,7 @@ class HomeController extends Controller
     public function blog()
     {
         $blogs = Blog::all();
-        $categories = Category::where('type', 1)->get();
+        $categories = BlogCategory::all();
         $latests = Blog::latest('created_at')->limit(3)->get();
 
         return view('frontend.blog.index', compact('blogs', 'latests', 'categories'));
@@ -64,7 +64,7 @@ class HomeController extends Controller
     public function getBlog(Blog $blog)
     {
 
-        $categories = Category::where('type', 1)->get();
+        $categories = BlogCategory::all();
         $latests = Blog::latest('created_at')->limit(3)->get();
 
         return view('frontend.blog.details', compact('blog', 'latests', 'categories'));

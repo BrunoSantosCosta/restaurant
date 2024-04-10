@@ -19,7 +19,6 @@
                                 <th>Cidade</th>
                                 <th>CEP</th>
                                 <th>Método de Pagamento</th>
-                                <th>Status do Pagamento</th>
                                 <th>Status</th>
                                 <th>Ações</th>
                             </tr>
@@ -34,8 +33,7 @@
                                     <td>{{ $item->address }}</td>
                                     <td>{{ $item->city }}</td>
                                     <td>{{ $item->postal_code }}</td>
-                                    <td><span class="badge badge-primary">{{ $item->payment_method === 1 ? 'Cash On Delivery':($item->payment_method === 2 ? 'Paypal':'Stripe') }}</span></td>
-                                    <td><span class="badge {{ $item->payment_status === 0 ? 'badge-danger':'badge-success' }}">{{ $item->payment_status === 0 ? 'Em Espera':'Concluido' }}</span></td>
+                                    <td><span class="badge badge-primary">{{ $item->payment_method === 1 ? 'Cash On Delivery':($item->payment_method === 2 ? 'Dinheiro':'Cartão') }}</span></td>
                                     <td><span class="badge {{ $item->order_status === 0 ? 'badge-warning':($item->order_status === 1 ? 'badge-success':'badge-danger') }}">{{ $item->order_status === 0 ? 'Em Andamento':($item->order_status === 1 ? 'Completo':'Cancelado') }}</span></td>
                                     <td style="white-space: nowrap">
                                         <a class="btn btn-primary" href="{{ route('admin.order.confirmation',['accept', $item->id] ) }}">Completo</a>
@@ -106,7 +104,7 @@
                         Tem certeza de que deseja excluir este item?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </div>
                 </div>

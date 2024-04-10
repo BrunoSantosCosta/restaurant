@@ -10,11 +10,15 @@ class Cart extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'menu_id', 'quantity'
+        'order_details',
+        'order_price',
+        'user_id',
+        'menu_id',
+        'quantity'
     ];
 
-    public function menu()
+    public function product()
     {
-        return $this->belongsTo('App\Models\Menu', 'menu_id');
+        return $this->belongsTo('App\Models\Product', 'menu_id');
     }
 }

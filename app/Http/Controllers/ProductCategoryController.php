@@ -39,6 +39,13 @@ class ProductCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->hasFile('thumbnail')) {
+            if ($request->file('thumbnail')->getError() === UPLOAD_ERR_INI_SIZE) {
+                $maxFileSize = ini_get('upload_max_filesize');
+                return redirect()->route('productCategory.index')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+            }
+        }
+
         $request->validate([
             'name' => 'required',
             'thumbnail' => 'required',
@@ -90,6 +97,13 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, ProductCategory $productCategory)
     {
+        if ($request->hasFile('thumbnail')) {
+            if ($request->file('thumbnail')->getError() === UPLOAD_ERR_INI_SIZE) {
+                $maxFileSize = ini_get('upload_max_filesize');
+                return redirect()->route('productCategory.index')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+            }
+        }
+
         $request->validate([
             'name' => 'required'
         ]);
@@ -107,7 +121,6 @@ class ProductCategoryController extends Controller
         ]);
 
         return redirect(route('productCategory.index'))->with('toast_success', 'Categoria Atualizada Com Sucesso!');
-
     }
 
     /**

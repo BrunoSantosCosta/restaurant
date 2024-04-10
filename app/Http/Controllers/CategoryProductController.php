@@ -42,6 +42,17 @@ class CategoryProductController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->hasFile('thumbnail')) {
+            if ($request->file('thumbnail')->getError() === UPLOAD_ERR_INI_SIZE) {
+                $maxFileSize = ini_get('upload_max_filesize');
+                if ($request->type == 0) {
+                    return redirect(route('category.index').'?type=menu')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+                }else{
+                    return redirect(route('category.index').'?type=blog')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+                }
+            }
+        }
+
         $request->validate([
             'name' => 'required',
             'type' => 'required'
@@ -98,6 +109,17 @@ class CategoryProductController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        if ($request->hasFile('thumbnail')) {
+            if ($request->file('thumbnail')->getError() === UPLOAD_ERR_INI_SIZE) {
+                $maxFileSize = ini_get('upload_max_filesize');
+                if ($request->type == 0) {
+                    return redirect(route('category.index').'?type=menu')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+                }else{
+                    return redirect(route('category.index').'?type=blog')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+                }
+            }
+        }
+
         $request->validate([
             'name' => 'required',
             'type' => 'required'

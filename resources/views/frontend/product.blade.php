@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <div class="col-xl-9 col-lg-10 col-md-8">
         <h1>Menu</h1>
-        <p>Cooking delicious and tasty food since</p>
+        <p>Hamburgueria</p>
     </div>
 @endsection
 @section('content')
@@ -31,13 +31,12 @@
                             <p>{{ '$item->category->name' }}</p>
                             <div class="price_box">
                                 <span class="new_price">${{ $item->price }}</span>
-                                {{-- <span class="old_price">${{ $item->price }}</span> --}}
                             </div>
                             @guest
                                     <a href="javascript:void(0)" class="btn_1" data-bs-toggle="modal" data-bs-target="#exampleModal">add to cart</a>
-                                    @else
+                                @else
                                     <a class="btn_1" href="{{ route('cart.add', [$item->id, auth()->user()->id]) }}">add to cart</a>
-                                    @endguest
+                            @endguest
                         </div>
                     </div>
                     @endforeach
@@ -65,7 +64,6 @@
                             <p>{{ '$item->category->name' }}</p>
                             <div class="price_box">
                                 <span class="new_price">${{ $item->price }}</span>
-                                {{-- <span class="old_price">${{ $item->price }}</span> --}}
                             </div>
                             @guest
                                     <a href="javascript:void(0)" class="btn_1" data-bs-toggle="modal" data-bs-target="#exampleModal">add to cart</a>
@@ -83,3 +81,12 @@
         </div>
     </div>
 @endsection
+<script>
+    $(document).ready(function() {
+        $('.div1').click(function() {
+            $('html, body').animate({
+                scrollTop: $('#targetDiv').offset().top
+            }, 1000);
+        });
+    });
+</script>

@@ -80,6 +80,13 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
+        if ($request->hasFile('thumbnail')) {
+            if ($request->file('thumbnail')->getError() === UPLOAD_ERR_INI_SIZE) {
+                $maxFileSize = ini_get('upload_max_filesize');
+                return redirect()->route('service.index')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+            }
+        }
+
         $request->validate([
             'title' => 'required',
             'thumbnail' => 'mimes:jpg,jpeg,png',

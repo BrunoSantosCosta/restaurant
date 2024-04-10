@@ -47,13 +47,8 @@ class ProductAddonController extends Controller
         $string = $request->price;
         $price = str_replace(["R$\u{A0}", "."], "", $string);
         $price = str_replace(",", ".", $price);
-        // echo $price;
-        // dd($price);
         $price = (float) $price;
 
-        // Verificar se o preço é maior que 999.99
-
-        // dd($price);
         if ($price > 999.99) {
             return redirect()->route('productAddon.create')->with('toast_error', 'Valor do adicional não pode passar de R$ 999,99!');
         }

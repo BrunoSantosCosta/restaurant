@@ -17,6 +17,7 @@ class GeneralController extends Controller
 
     public function store(Request $request, $type)
     {
+
         if ($type === 'create') {
             $request->validate([
                 'logo' => 'required'
@@ -28,7 +29,6 @@ class GeneralController extends Controller
             "logo" => 'mimes:jpg,jpeg,png',
             "story_title" => "required",
             "story_description" => "required",
-            "story_image" => "required",
             "why_choose_us" => "required",
             "address" => "required",
             "primary_phone" => "required",
@@ -82,6 +82,6 @@ class GeneralController extends Controller
             ]);
         }
 
-        return back()->with('toast_sucess', 'Informação Adicionada!');
+        return redirect()->route('admin.general')->with('toast_success', 'Informação Adicionada!');
     }
 }

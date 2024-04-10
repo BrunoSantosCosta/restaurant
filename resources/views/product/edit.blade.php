@@ -20,11 +20,11 @@
                     <div class="col-sm-12 col-md-7">
                         <select name="category_id" class="form-control selectric">
                             @foreach ($productCategories as $item)
-                            @if ($item->id == $product->category_id)
-                            <option selected value="{{ $item->id }}">{{ $item->name }}</option>
-                            @else
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endif
+                                @if ($item->id == $product->category_id)
+                                    <option selected value="{{ $item->id }}">{{ $item->name }}</option>
+                                @else
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -32,7 +32,7 @@
                 <div class="form-group row mb-4">
                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Preço</label>
                     <div class="col-sm-12 col-md-7">
-                        <input type="text" class="form-control" name="price" value="{{ $product->price }}">
+                        <input type="text" class="form-control" name="price" id="priceInput" onkeyup="formatarMoeda()" placeholder="Preço do Produto" value="{{ $product->price }}">
                     </div>
                 </div>
                 <div class="form-group row mb-4">

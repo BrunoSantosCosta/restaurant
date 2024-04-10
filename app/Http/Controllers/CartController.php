@@ -1,58 +1,66 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\CartProductAddon;
 use App\Models\Menu;
 use App\Models\Cart;
+use App\Models\Product;
+use App\Models\ProductAddon;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function addCart($menu, $user)
+    public function addCart(Request $request, Product $product, $user)
     {
-        $cart = Cart::where('user_id', $user)->where('menu_id', $menu)->first();
+        // dd($request->request);
+       $cart =  Cart::create([
+            'order_details' => $request->request->get('details') ?? '',
+            'order_price' => $request->request->get('update_price'),
+            'user_id' => $user,
+            'menu_id' => $product->id,
+            'quantity' => $request->request->get('quantity_product'),
+        ]);
 
-        if ($cart) {
-            $cart->increment('quantity');
-        }else {
-            Cart::create([
-                'user_id' => $user,
-                'menu_id' => $menu,
-                'quantity' => 1
-            ]);
+        foreach ($request->request as $key => $value) {
+            if (strpos($key, 'quantity_') === 0 && $value > 0) {
+                $productId = substr($key, strlen('quantity_'));
+                $addon = ProductAddon::find($productId);
+
+                if ($addon) {
+                    CartProductAddon::create([
+                        'id_order' => $cart->id,
+                        'quantity' => $value,
+                        'price' => $addon->price,
+                        'id_product' => $product->id,
+                        'id_addon' =>  $addon->id,
+                    ]);
+                }
+            }
         }
 
-        return back()->with('success', 'Item added to Cart!');
+        return back()->with('success', 'Produto Adicionado ao Carrinho!');
     }
 
     public function getCart($user)
     {
         $carts = Cart::where('user_id', $user)->get();
         $subtotal = 0;
-        foreach ($carts as $cart) {
-            $subtotal += $cart->quantity * $cart->menu->price;
-        }
-
-        return view('frontend.cart', compact('carts', 'subtotal'));
-    }
-
-    public function updateCart(Request $request, $user)
-    {
-        $carts = Cart::where('user_id', $user)->get();
 
         foreach ($carts as $cart) {
-            $quantity = "item_".$cart->menu_id;
-            $cart->update([
-                $cart->quantity = $request->$quantity
-            ]);
+                $priceString = preg_replace("/[^0-9.]/", "", $cart->product->price);
+                $price = (float)$priceString;
+                $subtotal += $cart->quantity * $price;
         }
+       $cartProductAddon = CartProductAddon::all();
 
-        return redirect(route('getcart', $user));
+       $addons = ProductAddon::all();
+        return view('frontend.cart', compact('carts', 'subtotal', 'cartProductAddon', 'addons'));
     }
 
     public function destroy(Cart $cart, $user)
     {
         $cart->delete();
-
+        CartProductAddon::where('id_order', $cart->id)->delete();
         return redirect(route('getcart', $user));
     }
 }
