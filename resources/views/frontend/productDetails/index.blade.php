@@ -18,18 +18,24 @@
                 </p>
             </div>
             <div class="col-lg-6" id="sidebar_fixed">
-                <form method="POST" action="{{ route('cart.add', [$product, auth()->user()->id]) }}">
+                <form method="POST"
+                    @if (auth()->user() && auth()->user()->id)
+                        action="{{ route('cart.add', [$product, auth()->user()->id])}}
+                    @endif
+                ">
                     @csrf
                     <div class="prod_info">
                         <h1>{{ $product->title }}</h1>
                         <p>{{ $product->description }}</p>
                         <div class="prod_options">
                             @foreach ($addons as $addon)
-                                <div class="row">
-                                    <label class="col-xl-5 col-lg-5 col-md-6 col-6"><strong>{{ $addon->name }} - R$ {{ $addon->price }}</strong></label>
+                                <div class="row addon_row">
+                                    <label class="col-xl-5 col-lg-5 col-md-6 col-6" data-price="{{ $addon->price }}"><strong>{{ $addon->name }} - R$ {{ number_format($addon->price, 2, ',', '.') }}</strong></label>
                                     <div class="col-xl-4 col-lg-5 col-md-6 col-6">
                                         <div class="numbers-row">
-                                            <input type="number" value="0" id="quantity_{{ $addon->id }} qtd_addon" class="qty2" name="quantity_{{ $addon->id }}" readonly>
+                                            <input type="number" value="0" class="qty2" name="quantity_{{ $addon->id }}" readonly>
+                                            <div class="inc button_inc">+</div>
+                                            <div class="dec button_inc">-</div>
                                         </div>
                                     </div>
                                 </div>
@@ -51,7 +57,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-5 col-md-6">
-                                <input type="hidden" name="update_price" value="{{ $product->price }}">
+                                <input type="hidden" name="base_price" value="{{ $product->price }}">
                                 <div class="price_main"><span class="new_price" id="total_price">R${{ $product->price }}</span> <span class="old_price">$16.00</span></div>
                             </div>
                             <div class="col-lg-4 col-md-6">
@@ -73,55 +79,47 @@
 @endsection
 @section('scripts')
     <script>
-        var productInitialPrice = parseFloat($("#total_price").text().replace(/[^\d,.]/g, '').replace(',', '.'));
-        $(".numbers-row").append('<div class="inc button_inc">+</div><div class="dec button_inc">-</div>');
+    $(document).ready(function() {
+        // Função para atualizar o preço total
+        function updateTotalPrice() {
+            var basePrice = parseFloat($('[name="base_price"]').val());
+            var productQuantity = parseInt($('#quantity_product').val());
+            var totalAddonsPrice = 0;
 
-        $(".button_inc").on("click", function () {
-        var $button = $(this);
-        var oldValue = $button.siblings("input").val();
-        var isProductQuantity = $button.siblings("input").attr('id') === 'quantity_product';
-        var isAddonQuantity = $button.siblings("input").attr('id') === 'qtd_addon';
-        if (isProductQuantity && oldValue <= 1 && $button.text() == '-') {
-            return;
+            $('.addon_row').each(function() {
+                var addonQuantity = parseInt($(this).find('.qty2').val());
+                var addonPrice = parseFloat($(this).find('label').attr('data-price'));
+                totalAddonsPrice += addonQuantity * addonPrice;
+            });
+
+            var total = (basePrice + totalAddonsPrice) * productQuantity;
+            $('#total_price').text(`R$${total.toFixed(2).replace('.', ',')}`);
         }
 
-        var addonPriceText = $button.closest(".row").find("strong").text().split(" - ")[1];
-        if (addonPriceText != undefined) {
-            var addonPrice = parseFloat(addonPriceText.replace(',', '.').replace(/[^\d.]/g, ''));
-            var productPriceText = $(".price_main .new_price").text();
-            var productPrice = parseFloat(productPriceText.replace(/[^\d,.]/g, '').replace(',', '.'));
-        }
+        // Adicionar e vincular eventos para botões de incremento e decremento
+        $('.numbers-row').append('<div class="inc button_inc">+</div><div class="dec button_inc">-</div>');
 
-        var currentTotal = parseFloat($("#total_price").text().replace(/[^\d,.]/g, '').replace(',', '.'));
+        $('.numbers-row').on('click', '.inc, .dec', function() {
+            var $button = $(this);
+            var $input = $button.siblings("input.qty2");
+            var oldValue = parseInt($input.val());
+            var newVal = $button.hasClass('inc') ? oldValue + 1 : Math.max(oldValue - 1, 0);
+            $input.val(newVal);
+            updateTotalPrice();
+        });
 
-        if ($button.text() == "+") {
-            var newVal = parseFloat(oldValue) + 1;
-            if (addonPriceText != undefined) {
-                currentTotal += addonPrice;
-            } else {
-                currentTotal += productInitialPrice;
-            }
-        } else {
-            if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
-                if (addonPriceText != undefined) {
-                    currentTotal -= addonPrice;
-                } else {
-                    currentTotal -= productInitialPrice;
-                }
-            } else {
-                newVal = 0;
-            }
-        }
+        // Atualiza o preço total ao carregar a página
+        updateTotalPrice();
 
-        if (isProductQuantity) {
-            $button.siblings("input").val(newVal);
-        } else {
-            $button.siblings("input").val(newVal < 0 ? 0 : newVal);
-        }
+        // Atualiza o preço total ao mudar a quantidade do produto principal
+        $('#quantity_product').on('change', function() {
+            updateTotalPrice();
+        });
 
-        $("#total_price").text("  R$" + currentTotal.toFixed(2).replace('.', ','));
+        // Atualiza o preço total ao mudar a quantidade dos adicionais
+        $('.prod_options').on('change', '.qty2', function() {
+            updateTotalPrice();
+        });
     });
-
     </script>
 @endsection

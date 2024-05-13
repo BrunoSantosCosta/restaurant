@@ -1,5 +1,5 @@
 @extends('layouts.frontend')
-
+@section('title', 'Início')
 @section('content')
 
     <div id="carousel-home">
@@ -75,11 +75,7 @@
                                         </div>
                                         <p>{{ strlen($product->description) > 71 ? substr($product->description, 0, 71) . '...' : $product->description }}</p>
                                         <div class="column  d-flex justify-content-between ">
-                                            @guest
-                                                <a href="javascript:void(0)" class="btn_1" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Produto</a>
-                                            @else
-                                                <a class="btn_1" href="{{ route('product.details', $product->id) }}">Ver Produto</a>
-                                            @endguest
+                                            <a class="btn_1" href="{{ route('product.details', $product->id) }}">Ver Produto</a>
                                             <em class="btn_1">R$ {{ $product->price }}</em>
                                         </div>
                                     </div>
@@ -105,6 +101,10 @@
 
 
     <section class="container margin_120_100">
+        <div class="main_title center mb-5">
+            <span><em></em></span>
+            <h2>Categorias</h2>
+        </div>
         <div class="row">
             @foreach ($productCategories as $item)
                 <div class="col-xl-3">
