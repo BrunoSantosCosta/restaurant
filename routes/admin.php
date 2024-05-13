@@ -31,5 +31,9 @@ Route::group(['middleware' => ['role:admin']], function () {
     //General routes
     Route::get('/general', [App\Http\Controllers\GeneralController::class, 'index'])->name('admin.general');
     Route::put('/general/{type}', [App\Http\Controllers\GeneralController::class, 'store'])->name('admin.general.store');
+    //Schedules routes
+    // Route::get('/schedules', [App\Http\Controllers\SchedulesController::class, 'index'])->name('admin.schedules');
+    Route::resource('/schedules', \App\Http\Controllers\SchedulesController::class, ['names' => 'schedules']);
+
 });
 

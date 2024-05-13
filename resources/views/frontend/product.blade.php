@@ -35,7 +35,11 @@
                             @guest
                                     <a href="javascript:void(0)" class="btn_1" data-bs-toggle="modal" data-bs-target="#exampleModal">add to cart</a>
                                 @else
-                                    <a class="btn_1" href="{{ route('cart.add', [$item->id, auth()->user()->id]) }}">add to cart</a>
+                                    <a class="btn_1"
+                                        @if (auth()->user() && auth()->user()->id)
+                                            href="{{ route('cart.add', [$item->id, auth()->user()->id]) }}
+                                        @endif
+                                     ">Adicionar ao Carrinhos</a>
                             @endguest
                         </div>
                     </div>
@@ -66,9 +70,13 @@
                                 <span class="new_price">${{ $item->price }}</span>
                             </div>
                             @guest
-                                    <a href="javascript:void(0)" class="btn_1" data-bs-toggle="modal" data-bs-target="#exampleModal">add to cart</a>
+                                    <a href="javascript:void(0)" class="btn_1" data-bs-toggle="modal" data-bs-target="#exampleModal">Adicionar ao Carrinho</a>
                                     @else
-                                    <a class="btn_1" href="{{ route('cart.add', [$item->id, auth()->user()->id]) }}">add to cart</a>
+                                    <a class="btn_1"
+                                        @if (auth()->user() && auth()->user()->id)
+                                        href="{{ route('cart.add', [$item->id, auth()->user()->id]) }}
+                                        @endif
+                                    ">Adicionar ao Carrinho</a>
                                     @endguest
                         </div>
                     </div>
