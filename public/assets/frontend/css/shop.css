@@ -1132,7 +1132,7 @@ input.qty2:focus {
 .item_cart {
     float: left;
     width: 65%;
-    margin: 25px 0 0 10px;
+    margin: 5px 0 0 10px;
     line-height: 1.3;
     font-weight: 500
 }
