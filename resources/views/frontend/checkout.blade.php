@@ -90,21 +90,14 @@
                         </div>
                         <div class="main">
                             <ul class="clearfix">
-                                @php
-                                    $total = 0;
-                                @endphp
-                                @foreach ($carts as $product)
-                                    @php
-                                        $subtotal = doubleval(str_replace(',', '.', $product->price)) * doubleval($product->quantity);
-                                        $total += $subtotal;
-                                    @endphp
-                                    <input type="hidden" name="menu_id[]" value="{{ $product->menu_id }}">
-                                    <input type="hidden" name="quantity[]"  value="{{ $product->quantity }}">
-                                    <li>{{ $product->quantity }}x - {{ strlen($product->title) > 25 ? substr($product->title, 0, 25) . '...' : $product->title }}<span>R${{ $subtotal }}</span></li>
+                                @foreach ($carts as $cart)
+                                    <input type="hidden" name="menu_id[]" value="{{ $cart->menu_id }}">
+                                    <input type="hidden" name="quantity[]"  value="{{ $cart->quantity }}">
+                                    <li>{{ $cart->quantity }}x - {{ strlen($cart->title) > 25 ? substr($cart->title, 0, 25) . '...' : $cart->title }}<span>R${{ $subtotal }}</span></li>
                                 @endforeach
                             </ul>
                             <ul class="clearfix">
-                                <li>Subtotal<span>R${{ $total }}</span></li>
+                                <li>Subtotal<span>R${{ $subtotal }}</span></li>
                                 <li>Taxa de Entrega<span> GRÁTIS </span></li>
                                 <li>TOTAL<span>R${{ $total }}</span></li>
                                 <input type="hidden" name="total" value="{{ $total }}">

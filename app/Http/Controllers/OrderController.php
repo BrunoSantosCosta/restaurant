@@ -17,7 +17,16 @@ class OrderController extends Controller
         ->join('products', 'carts.menu_id', '=', 'products.id')
         ->select('carts.*', 'products.*')
         ->get();
-        return view('frontend.checkout', compact('carts'));
+
+        $subtotal = 0;
+        $total = 0;
+        foreach ($carts as $cart) {
+            $price = floatval(str_replace(',', '.', $cart->order_price));
+            $subtotal += $price;
+            $total += $price;
+        }
+
+        return view('frontend.checkout', compact('carts', 'subtotal', 'total'));
 
     }
 
@@ -49,7 +58,6 @@ class OrderController extends Controller
                 'total' => $request->total
             ]);
             foreach ($request->menu_id as $menuId) {
-                // dump($menuId);
                 Cart::where('user_id', $user)
                 ->whereNotExists(function ($query) use ($menuId) {
                     $query->select('id')
@@ -59,14 +67,9 @@ class OrderController extends Controller
                 })
                 ->delete();
             }
-            // die();
         } catch (\Throwable $th) {
-            dd($th);
             return back()->with('toast_error', 'Preencha Todos os Campos Para Prosseguir!');
         }
-        // Cart::where('user_id', $user)->delete();
-
-        // CartProductAddon::where('id_product', $request->menu_id)->delete();
         return redirect(route('home'))->with('success', "Pedido Feito com Sucesso!");
     }
 

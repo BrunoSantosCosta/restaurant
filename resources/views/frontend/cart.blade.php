@@ -1,9 +1,9 @@
 @extends('layouts.frontend')
-@section('title', 'Cart')
+@section('title', 'Carrinho')
 
 @section('breadcrumb')
     <div class="col-xl-9 col-lg-10 col-md-8">
-        <h1>Order</h1>
+        <h1>Carrinho</h1>
         <p>Hamburgueria</p>
     </div>
 @endsection
@@ -24,7 +24,6 @@
                                                 <th>Adicionais</th>
                                                 <th>Detalhes</th>
                                                 <th>Preço</th>
-                                                <th>Subtotal</th>
                                                 <th>Ações</th>
                                             </tr>
                                         </thead>
@@ -37,26 +36,26 @@
                                                                 <img width="80" src="{{ asset($cart->product->thumbnail) }}"
                                                                     data-src="{{ asset($cart->product->thumbnail) }}" class="lazy" alt="Image">
                                                             </div>
-                                                            <span class="item_cart">{{ $cart->quantity }}x - {{ $cart->product->title }}</span>
+                                                            <div>
+                                                                <span class="item_cart">{{ $cart->quantity }}x - {{ $cart->product->title }}</span>
+                                                                <span class="item_cart">R$ {{ $cart->product->price }}</span>
+                                                            </div>
                                                         </td>
                                                         <th>
                                                             @foreach($cartProductAddon as $addon)
                                                                 @if ($addon->id_product == $cart->product->id)
                                                                     @foreach ($addons as $item)
                                                                         @if ($addon->id_addon == $item->id)
-                                                                            <p>{{ $item->name }} - R$ {{ $item->price }}</p>
+                                                                            <p>{{ $addon->quantity }}x {{ $item->name }} - R$ {{ $item->price }}</p>
                                                                         @endif
                                                                     @endforeach
                                                                 @endif
                                                             @endforeach
                                                         </th>
 
-                                                        <td>{{ $cart->details }}</td>
+                                                        <td>{{ $cart->order_details }}</td>
                                                         <td>
-                                                            <strong>R$ <span>{{ $cart->product->price }}</span></strong>
-                                                        </td>
-                                                        <td>
-                                                            <strong>R$ <span>{{ floatval($cart->product->price) * $cart->quantity }}</span></strong>
+                                                            <strong>R$<span>{{ $cart->order_price }}</span></strong>
                                                         </td>
                                                         <td class="options">
                                                             <a href="{{ route('cart.delete', [$cart->id, auth()->user()->id]) }}" class="btn btn-link text-danger" type="submit"><i class="fas fa-trash"></i></a>
@@ -81,10 +80,13 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <ul>
                             <li>
+                                <span>Subtotal</span> R${{ $subtotal }}
+                            </li>
+                            <li>
                                 <span>Entrega</span> Gratís
                             </li>
                             <li>
-                                <span>Total</span> R${{ floatval($cart->product->price) * $cart->quantity }}
+                                <span>Total</span> R$  ${{ $total }}
                             </li>
                         </ul>
                         @if ($carts->isEmpty())

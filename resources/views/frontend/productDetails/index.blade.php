@@ -19,6 +19,7 @@
             </div>
             <div class="col-lg-6" id="sidebar_fixed">
                 <form method="POST"
+                      id="cartForm"
                     @if (auth()->user() && auth()->user()->id)
                         action="{{ route('cart.add', [$product, auth()->user()->id])}}
                     @endif
@@ -42,8 +43,8 @@
                             @endforeach
                         </div>
                         <div class="mb-3">
-                            <label for="detalhes" class="form-label">Detalhes do Pedido:</label>
-                            <textarea class="form-control" id="detalhes" name="detalhes" rows="50s" cols="50" style="min-height: 150px" placeholder="Ex: Sem Alface, tomate, queijo, cebola..."></textarea>
+                            <label for="details" class="form-label">Detalhes do Pedido:</label>
+                            <textarea class="form-control" id="details" name="details" rows="50s" cols="50" style="min-height: 150px" placeholder="Ex: Sem Alface, tomate, queijo, cebola..."></textarea>
                         </div>
                         <div class="prod_options">
                             <div class="row">
@@ -58,6 +59,7 @@
                         <div class="row">
                             <div class="col-lg-5 col-md-6">
                                 <input type="hidden" name="base_price" value="{{ $product->price }}">
+                                <input type="hidden" name="total_price" id="hidden_total_price">
                                 <div class="price_main"><span class="new_price" id="total_price">R${{ $product->price }}</span> <span class="old_price">$16.00</span></div>
                             </div>
                             <div class="col-lg-4 col-md-6">
@@ -80,9 +82,8 @@
 @section('scripts')
     <script>
     $(document).ready(function() {
-        // Função para atualizar o preço total
         function updateTotalPrice() {
-            var basePrice = parseFloat($('[name="base_price"]').val());
+            var basePrice = parseFloat($('[name="base_price"]').val().replace(',', '.'));
             var productQuantity = parseInt($('#quantity_product').val());
             var totalAddonsPrice = 0;
 
@@ -96,7 +97,6 @@
             $('#total_price').text(`R$${total.toFixed(2).replace('.', ',')}`);
         }
 
-        // Adicionar e vincular eventos para botões de incremento e decremento
         $('.numbers-row').append('<div class="inc button_inc">+</div><div class="dec button_inc">-</div>');
 
         $('.numbers-row').on('click', '.inc, .dec', function() {
@@ -108,18 +108,21 @@
             updateTotalPrice();
         });
 
-        // Atualiza o preço total ao carregar a página
         updateTotalPrice();
 
-        // Atualiza o preço total ao mudar a quantidade do produto principal
         $('#quantity_product').on('change', function() {
             updateTotalPrice();
         });
 
-        // Atualiza o preço total ao mudar a quantidade dos adicionais
         $('.prod_options').on('change', '.qty2', function() {
             updateTotalPrice();
         });
+    });
+
+      document.getElementById('cartForm').addEventListener('submit', function() {
+        var totalPriceElement = document.getElementById('total_price');
+        var hiddenTotalPriceElement = document.getElementById('hidden_total_price');
+        hiddenTotalPriceElement.value = totalPriceElement.innerText.replace('R$', '').trim();
     });
     </script>
 @endsection

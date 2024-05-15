@@ -12,10 +12,10 @@ class CartController extends Controller
 {
     public function addCart(Request $request, Product $product, $user)
     {
-        // dd($request->request);
-       $cart =  Cart::create([
+
+        $cart =  Cart::create([
             'order_details' => $request->request->get('details') ?? '',
-            'order_price' => $request->request->get('update_price'),
+            'order_price' => $request->request->get('total_price'),
             'user_id' => $user,
             'menu_id' => $product->id,
             'quantity' => $request->request->get('quantity_product'),
@@ -45,16 +45,17 @@ class CartController extends Controller
     {
         $carts = Cart::where('user_id', $user)->get();
         $subtotal = 0;
+        $total = 0;
 
         foreach ($carts as $cart) {
-                $priceString = preg_replace("/[^0-9.]/", "", $cart->product->price);
-                $price = (float)$priceString;
-                $subtotal += $cart->quantity * $price;
+            $price = floatval(str_replace(',', '.', $cart->order_price));
+            $quantity = floatval(str_replace(',', '.', $cart->quantity));
+            $subtotal += $price;
+            $total += $price;
         }
        $cartProductAddon = CartProductAddon::all();
-
        $addons = ProductAddon::all();
-        return view('frontend.cart', compact('carts', 'subtotal', 'cartProductAddon', 'addons'));
+        return view('frontend.cart', compact('carts', 'subtotal', 'total' ,'cartProductAddon', 'addons'));
     }
 
     public function destroy(Cart $cart, $user)
