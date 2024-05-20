@@ -11,7 +11,6 @@
     <title>{{ config('app.name', 'Hot Food') }} | @yield('title')</title>
 
 	<!-- Favicons-->
-	<link rel="shortcut icon" type="imagex/png" href="../public/uploads/favicon/favicon.ico">
 	<link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
 	<link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
 	<link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
@@ -39,6 +38,7 @@
 
 	<!-- YOUR CUSTOM CSS -->
 	<link href="{{ asset('assets/frontend/css/custom.css') }}" rel="stylesheet">
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 
 </head>
 
