@@ -90,17 +90,17 @@
                         </div>
                         <div class="main">
                             <ul class="clearfix">
-                                @foreach ($carts as $cart)
+                                @foreach ($cartsCheckout as $cart)
                                     <input type="hidden" name="menu_id[]" value="{{ $cart->menu_id }}">
                                     <input type="hidden" name="quantity[]"  value="{{ $cart->quantity }}">
-                                    <li>{{ $cart->quantity }}x - {{ strlen($cart->title) > 25 ? substr($cart->title, 0, 25) . '...' : $cart->title }}<span>R${{ $subtotal }}</span></li>
+                                    <li>{{ $cart->quantity }}x - {{ strlen($cart->title) > 25 ? substr($cart->title, 0, 25) . '...' : $cart->title }}<span>R${{ $subtotalCheckout }}</span></li>
                                 @endforeach
                             </ul>
                             <ul class="clearfix">
-                                <li>Subtotal<span>R${{ $subtotal }}</span></li>
+                                <li>Subtotal<span>R${{ $subtotalCheckout }}</span></li>
                                 <li>Taxa de Entrega<span> GRÁTIS </span></li>
-                                <li>TOTAL<span>R${{ $total }}</span></li>
-                                <input type="hidden" name="total" value="{{ $total }}">
+                                <li>TOTAL<span>R${{ $totalCheckout }}</span></li>
+                                <input type="hidden" name="total" value="{{ $totalCheckout }}">
                             </ul>
                             <button type="submit" class="btn_1 full-width mb_5">Finalizar Pedido</button>
                             <div class="text-center"><small>Ou nos Ligue <strong>{{ $general ? $general->primary_phone:'' }}</strong></small>

@@ -4,29 +4,57 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\CartProductAddon;
 use App\Models\Order;
-use App\Models\OrderMeta;
+use App\Models\ProductAddon;
 use App\Http\Controllers\DB;
 use App\Models\Product;
+use App\Models\Schedules;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
     public function checkout($user)
     {
-        $carts = Cart::where('user_id', $user)
+        $cartsCheckout = Cart::where('user_id', $user)
         ->join('products', 'carts.menu_id', '=', 'products.id')
         ->select('carts.*', 'products.*')
         ->get();
 
+        $subtotalCheckout = 0;
+        $totalCheckout = 0;
+        foreach ($cartsCheckout as $cart) {
+            $price = floatval(str_replace(',', '.', $cart->order_price));
+            $subtotalCheckout += $price;
+            $totalCheckout += $price;
+        }
+
+        $schedules = Schedules::all();
+        $currentDay = date('N');
+        $currentHour = date('H:i');
+        $carts = Cart::where('user_id', $user)->get();
         $subtotal = 0;
         $total = 0;
+
         foreach ($carts as $cart) {
             $price = floatval(str_replace(',', '.', $cart->order_price));
+            $quantity = floatval(str_replace(',', '.', $cart->quantity));
             $subtotal += $price;
             $total += $price;
         }
-
-        return view('frontend.checkout', compact('carts', 'subtotal', 'total'));
+       $cartProductAddon = CartProductAddon::all();
+       $addons = ProductAddon::all();
+        foreach ($schedules as $schedule) {
+        $today = $schedule['id'];
+        if ($currentDay == $today) {
+            if ($schedule['is_open'] == 0) {
+               return back()->with('toast_error', 'O estabelecimento está fechado no momento!');
+            } elseif ($currentHour >= $schedule['open'] && $currentHour <= $schedule['close']) {
+                return view('frontend.checkout', compact('cartsCheckout', 'subtotalCheckout', 'totalCheckout'));
+            } else {
+                return back()->with('toast_error', 'O estabelecimento está fechado no momento!');
+            }
+            break;
+        }
+    }
 
     }
 
