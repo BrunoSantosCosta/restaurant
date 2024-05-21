@@ -1,6 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
+            <img src="{{ asset('assets/frontend/img/favicon-backend.png') }}" alt="logo" width="45">
             <a href="{{ route('admin.home') }}">Siteentrega</a>
         </div>
         <ul class="sidebar-menu">
