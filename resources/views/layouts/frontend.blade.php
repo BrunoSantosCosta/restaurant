@@ -38,7 +38,7 @@
 
 	<!-- YOUR CUSTOM CSS -->
 	<link href="{{ asset('assets/frontend/css/custom.css') }}" rel="stylesheet">
-	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/frontend/img/favicon.ico') }}">
 
 </head>
 
@@ -115,6 +115,7 @@
 							</div>
 							<div class="form-group mb-2">
 								<input class="btn_1 full-width" type="submit" value="Entrar" id="submit-contact">
+                                <li><a href="javascript:void(0)" class="btn_top" data-bs-toggle="modal" data-bs-target="#registerModal">Registrar</a></li>
 							</div>
 						</form>
 					</div>

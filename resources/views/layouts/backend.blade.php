@@ -23,6 +23,7 @@
 
     <!-- Custom CSS -->
 	<link href="{{ asset('assets/frontend/css/custom-backend.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/frontend/img/favicon-backend.png') }}">
 
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>

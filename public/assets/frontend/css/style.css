@@ -777,7 +777,7 @@ header.sticky .main-menu>ul>li:hover>a {
         text-align: center;
         position: relative;
         padding: 30px 0 25px 0;
-        background-color: #d33;
+        background-color: #fff;
     }
 
     #header_menu a.open_close {
@@ -827,7 +827,7 @@ header.sticky .main-menu>ul>li:hover>a {
         transform: rotate(180deg);
         color: #d33;
     }
-
+/*
     .main-menu ul>li.submenu>a:after {
         font-family: ElegantIcons;
         font-size: 21px;
@@ -842,7 +842,7 @@ header.sticky .main-menu>ul>li:hover>a {
         -webkit-transition: all 0.3s ease-in-out;
         -ms-transition: all 0.3s ease-in-out;
         transition: all 0.3s ease-in-out;
-    }
+    } */
 
     .main-menu ul li.submenu ul {
         border-left: 1px solid #ededed;
