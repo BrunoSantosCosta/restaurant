@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        // Schema::create('schedules', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->timestamps();
-        // });
+        Schema::table('products', function (Blueprint $table) {
+            $table->string('discount_price')->nullable()->after('price');
+        });
     }
 
     /**
@@ -26,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schedules');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('discount_price');
+        });
     }
 };

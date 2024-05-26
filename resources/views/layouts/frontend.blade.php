@@ -115,7 +115,6 @@
 							</div>
 							<div class="form-group mb-2">
 								<input class="btn_1 full-width" type="submit" value="Entrar" id="submit-contact">
-                                <li><a href="javascript:void(0)" class="btn_top" data-bs-toggle="modal" data-bs-target="#registerModal">Registrar</a></li>
 							</div>
 						</form>
 					</div>

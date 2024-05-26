@@ -15,6 +15,7 @@ class Product extends Model
         'thumbnail',
         'description',
         'price',
+        'discount_price',
         'status'
     ];
 

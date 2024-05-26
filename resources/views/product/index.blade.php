@@ -30,11 +30,20 @@
                                     </td>
                                     <td>{{ $item->title }}</td>
                                     <td>{{ $item->category->name }}</td>
-                                    <td>R$ {{ $item->price }}</td>
+                                    <td>
+                                        @if ($item->discount_price != '')
+                                            <div>
+                                               <strong> DE: </strong> <del>R$ {{ $item->price }}</del>
+                                            </br>
+                                               <strong>POR:</strong> R$ {{ $item->discount_price }}
+                                            </div>
+                                        @else
+                                            R$ {{ $item->price }}
+                                        @endif
+                                    </td>
                                     <td><span class="badge {{ $item->status == 1 ? 'badge-primary':'badge-warning' }}">{{ $item->status == 1 ? 'Publicado':'Inativo' }}</span></td>
                                     <td>
                                         <a class="btn btn-primary" href="{{ route('product.edit', $item->id) }}">Editar</a>
-                                        {{-- <a class="btn btn-secondary" href="#">Detalhes</a> --}}
                                         <button class="btn btn-danger delete" type="button" id="{{ $item->id }}" class="btn btn-primary"
                                             data-toggle="modal" data-target="#exampleModal">Excluir</button>
                                     </td>

@@ -29,8 +29,12 @@
                                     <p>{{ strlen($product->description) > 150 ? substr($product->description, 0, 150) . '...' : $product->description }}</p>
                                     <div class="price-product">
                                         <div class="price_box">
-                                            <span class="new_price">{{ $product->price }}</span>
-                                            <span class="old_price">$12.00</span>
+                                            @if ($product->discount_price != '')
+                                                <span class="new_price">R$ {{ $product->discount_price }}</span>
+                                                <span class="old_price">R$ {{ $product->price }}</span>
+                                            @else
+                                                <span class="new_price">R$ {{ $product->price }}</span>
+                                            @endif
                                         </div>
                                         <a class="btn_1 add_to_cart"  href="{{ route('product.details', $product->id) }}">Ver Produto</a>
                                     </div>
