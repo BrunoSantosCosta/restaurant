@@ -20,7 +20,7 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Preço</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" name="price" id="priceInput" onkeyup="formatarMoeda()"  placeholder="Preço do Adicional">
+                    <input type="text" class="form-control" name="price" id="priceInput" onkeyup="formatCurrency()"  placeholder="Preço do Adicional">
                 </div>
             </div>
             <div claszps="card-footer">

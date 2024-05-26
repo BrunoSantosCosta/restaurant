@@ -76,7 +76,14 @@
                                         <p>{{ strlen($product->description) > 71 ? substr($product->description, 0, 71) . '...' : $product->description }}</p>
                                         <div class="column  d-flex justify-content-between ">
                                             <a class="btn_1" href="{{ route('product.details', $product->id) }}">Ver Produto</a>
-                                            <em class="btn_1">R$ {{ $product->price }}</em>
+                                            @if ($product->discount_price != '')
+                                                <div>
+                                                    <em class="btn_1">R$ {{ $product->discount_price }}</em>
+                                                    <span class="old_price">R$ {{ $product->price }}</span>
+                                                </div>
+                                            @else
+                                                <em class="btn_1">R$ {{ $product->price }}</em>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

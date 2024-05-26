@@ -47,10 +47,28 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
+        $image = $request->file('thumbnail');
+        $path = 'uploads/product/';
+
+        $priceString = $request->price;
+        $price = str_replace(["R$\u{A0}", " "], "", $priceString);
+
+        $discountPriceString = $request->discount_price;
+        $discountPrice = str_replace(["R$\u{A0}", " "], "", $discountPriceString);
+
+        if ($discountPrice != "") {
+            $price = (float) str_replace(",", ".", str_replace(".", "", $price));
+            $discountPrice = (float) str_replace(",", ".", str_replace(".", "", $discountPrice));
+            if ($discountPrice >= $price) {
+                return back()->with('toast_error', 'O preço com desconto não pode ser maior ou igual ao preço');
+            }
+        }
+
         if ($request->hasFile('thumbnail')) {
             if ($request->file('thumbnail')->getError() === UPLOAD_ERR_INI_SIZE) {
                 $maxFileSize = ini_get('upload_max_filesize');
-                return redirect()->route('product.index')->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
+                return back()->with('toast_error', 'Tamanho do arquivo excedido. O tamanho máximo permitido é: ' . $maxFileSize);
             }
         }
 
@@ -63,18 +81,13 @@ class ProductController extends Controller
             'status' => 'required'
         ]);
 
-        $image = $request->file('thumbnail');
-        $path = 'uploads/product/';
-
-        $string = $request->price;
-        $price = str_replace(["R$\u{A0}", " "], "", $string);
-
         $product = Product::create([
                 'category_id' => $request->category_id,
                 'title' => $request->title,
                 'thumbnail' => uploadImage($image, $path),
                 'description' => $request->description,
                 'price' => $price,
+                'discount_price' => $discountprice,
                 'status' => $request->status
             ]);
 
@@ -128,6 +141,22 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $string = $request->price;
+        $price = str_replace(["R$\u{A0}", " "], "", $string);
+
+
+        $discountPriceString = $request->discount_price;
+        $discountPrice = str_replace(["R$\u{A0}", " "], "", $discountPriceString);
+
+        if ($discountPrice != "") {
+            $price = (float) str_replace(",", ".", str_replace(".", "", $price));
+            $discountPrice = (float) str_replace(",", ".", str_replace(".", "", $discountPrice));
+
+            if ($discountPrice >= $price) {
+                return  back()->with('toast_error', 'O preço com desconto não pode ser maior ou igual ao preço');
+            }
+        }
+
         if ($request->hasFile('thumbnail')) {
             if ($request->file('thumbnail')->getError() === UPLOAD_ERR_INI_SIZE) {
                 $maxFileSize = ini_get('upload_max_filesize');
@@ -150,8 +179,7 @@ class ProductController extends Controller
             $old_path = public_path($product->thumbnail);
         }
 
-        $string = $request->price;
-        $price = str_replace(["R$\u{A0}", " "], "", $string);
+
 
         $product->update([
             'category_id' => $request->category_id,
@@ -159,6 +187,7 @@ class ProductController extends Controller
             'thumbnail' => $request->hasFile('thumbnail') ? uploadImage($image, $path, $old_path):$product->thumbnail,
             'description' => $request->description,
             'price' => $price,
+            'discount_price' => $discountPrice,
             'status' => $request->status,
         ]);
 

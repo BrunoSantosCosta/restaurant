@@ -32,7 +32,20 @@
                 <div class="form-group row mb-4">
                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Preço</label>
                     <div class="col-sm-12 col-md-7">
-                        <input type="text" class="form-control" name="price" id="priceInput" onkeyup="formatarMoeda()" placeholder="Preço do Produto" value="{{ $product->price }}">
+                        <input type="text" class="form-control" name="price" id="priceInput" onkeyup="formatCurrency()" placeholder="Preço do Produto" value="{{ $product->price }}">
+                    </div>
+                </div>
+                <div id="discountPriceField" style="display: block;">
+                    <div class="form-group row mb-4">
+                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Preço com Desconto</label>
+                        <div class="col-sm-12 col-md-7">
+                            <input type="text" class="form-control" name="discount_price" id="discountPriceInput" onkeyup="formatCurrencyPriceDiscount()" placeholder="Preço do Produto com Desconto com Desconto" value="{{ $product->discount_price }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <div class="col-sm-12 col-md-7 offset-md-3">
+                        <button type="button" class="btn btn-secondary" id="toggleDiscountPriceId" onclick="toggleDiscountPrice()">Remover preço com desconto</button>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
@@ -98,4 +111,21 @@
 @endsection
 @section('scripts')
     <script src="{{ asset('assets/js/page/features-post-create.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            window.toggleDiscountPrice = function() {
+                var discountPriceField = document.getElementById('discountPriceField');
+                var toggleButton = document.getElementById('toggleDiscountPriceId');
+                if (discountPriceField.style.display === 'block') {
+                    discountPriceField.style.display = 'none';
+                    toggleButton.textContent = 'Adicionar preço com desconto';
+                    document.getElementById('discountPriceInput').value = '';
+
+                } else {
+                    discountPriceField.style.display = 'block';
+                    toggleButton.textContent = 'Remover preço com desconto';
+                }
+            }
+        });
+    </script>
 @endsection

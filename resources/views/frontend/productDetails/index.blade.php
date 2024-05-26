@@ -58,9 +58,14 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-5 col-md-6">
-                                <input type="hidden" name="base_price" value="{{ $product->price }}">
-                                <input type="hidden" name="total_price" id="hidden_total_price">
-                                <div class="price_main"><span class="new_price" id="total_price">R${{ $product->price }}</span> <span class="old_price">$16.00</span></div>
+                                @if ($product->discount_price != '')
+                                    <input type="hidden" name="base_price" value="{{ $product->discount_price }}">
+                                    <input type="hidden" name="total_price" id="hidden_total_price">
+                                    <div class="price_main"><span class="new_price" id="total_price">R${{ $product->discount_price }}</span> <span class="old_price">R${{ $product->price }}</span></div>
+                                @else
+                                    <input type="hidden" name="base_price" value="{{ $product->price }}">
+                                    <input type="hidden" name="total_price" id="hidden_total_price">
+                                @endif
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="btn_add_to_cart">
