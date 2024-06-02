@@ -29,17 +29,18 @@
 
 	<!-- BASE CSS -->
 	<link href="{{ asset('assets/frontend/css/vendors.min.css') }}" rel="stylesheet">
-	<link href="{{ asset('assets/frontend/css/style.css') }}" rel="stylesheet">
+    @include('../frontend/style/style')
 
 	<!-- SPECIFIC CSS -->
 	<link href="{{ asset('assets/frontend/css/wizard.css') }}" rel="stylesheet">
-	<link href="{{ asset('assets/frontend/css/blog.css') }}" rel="stylesheet">
+	{{-- <link href="{{ asset('assets/frontend/css/blog.css') }}" rel="stylesheet"> --}}
+    @include('../frontend/style/blog')
 	<link href="{{ asset('assets/frontend/css/shop.css') }}" rel="stylesheet">
 
 	<!-- YOUR CUSTOM CSS -->
 	<link href="{{ asset('assets/frontend/css/custom.css') }}" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/frontend/img/favicon.ico') }}">
-
+    @include('../frontend/style/home-style')
 </head>
 
 <body>

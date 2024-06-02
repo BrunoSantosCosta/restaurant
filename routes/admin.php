@@ -18,6 +18,9 @@ Route::group(['middleware' => ['role:admin']], function () {
     // Products Highlights
     Route::resource('/productHighlight', \App\Http\Controllers\ProductHighlightController::class, ['names' => 'productHighlight']);
 
+    // Products Styles
+    Route::resource('/styles', \App\Http\Controllers\StylesController::class, ['names' => 'styles']);
+
     // Service routes
     Route::resource('/service', \App\Http\Controllers\ServiceController::class, ['names' => 'service']);
     // Staff routes

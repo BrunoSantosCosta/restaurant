@@ -64,7 +64,6 @@ class ProductHighlightController extends Controller
     {
         $productHighlights = ProductHighlight::all();
 
-        $highlightedProducts = [];
         foreach ($productHighlights as $highlight) {
             $highlight->delete();
         }

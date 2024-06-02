@@ -416,12 +416,6 @@ a.open_filters.btn_filters {
     }
 }
 
-.new_price {
-    color: #d33;
-    font-weight: 500;
-    font-size: 1rem;
-}
-
 .old_price {
     color: #999;
     text-decoration: line-through;
@@ -499,11 +493,6 @@ a.open_filters.btn_filters {
 
 .row_item .price_box {
     margin-bottom: 20px
-}
-
-.row_item .new_price {
-    font-size: 21px;
-    font-size: 1.3125rem
 }
 
 .row_item .old_price {
@@ -673,11 +662,6 @@ a.open_filters.btn_filters {
 .price_main .old_price {
     font-size: 18px !important;
     font-size: 1rem !important
-}
-
-.price_main .new_price {
-    font-size: 24px;
-    font-size: 1.5rem
 }
 
 .price_main .percentage {

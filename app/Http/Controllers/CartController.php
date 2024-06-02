@@ -6,6 +6,7 @@ use App\Models\Menu;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\ProductAddon;
+use App\Models\Style;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -55,7 +56,11 @@ class CartController extends Controller
         }
        $cartProductAddon = CartProductAddon::all();
        $addons = ProductAddon::all();
-        return view('frontend.cart', compact('carts', 'subtotal', 'total' ,'cartProductAddon', 'addons'));
+       $styles = Style::all();
+       foreach ($styles as $item) {
+           $general_color = $item->general_color;
+       }
+        return view('frontend.cart', compact('carts', 'subtotal', 'total' ,'cartProductAddon', 'addons', 'general_color'));
     }
 
     public function destroy(Cart $cart, $user)

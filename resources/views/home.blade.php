@@ -16,7 +16,7 @@
                                             <p class="owl-slide-animated owl-slide-subtitle">
                                                 {{ $slider->sub_title }}
                                             </p>
-                                            <div class="owl-slide-animated owl-slide-cta"><a class="btn_1 btn_scroll"
+                                            <div class="owl-slide-animated owl-slide-cta"><a class="btn_1 btn_scroll custom-teste"
                                                 href="#" role="button">Ver Cardápio</a></div>
                                         </div>
                                     </div>

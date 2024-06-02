@@ -8,6 +8,7 @@ use App\Models\ProductAddon;
 use App\Http\Controllers\DB;
 use App\Models\Product;
 use App\Models\Schedules;
+use App\Models\Style;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -42,13 +43,17 @@ class OrderController extends Controller
         }
        $cartProductAddon = CartProductAddon::all();
        $addons = ProductAddon::all();
+       $styles = Style::all();
+       foreach ($styles as $item) {
+           $general_color = $item->general_color;
+       }
         foreach ($schedules as $schedule) {
         $today = $schedule['id'];
         if ($currentDay == $today) {
             if ($schedule['is_open'] == 0) {
                return back()->with('toast_error', 'O estabelecimento está fechado no momento!');
             } elseif ($currentHour >= $schedule['open'] && $currentHour <= $schedule['close']) {
-                return view('frontend.checkout', compact('cartsCheckout', 'subtotalCheckout', 'totalCheckout'));
+                return view('frontend.checkout', compact('cartsCheckout', 'subtotalCheckout', 'totalCheckout', 'general_color'));
             } else {
                 return back()->with('toast_error', 'O estabelecimento está fechado no momento!');
             }
