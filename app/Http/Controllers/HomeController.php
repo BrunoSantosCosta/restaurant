@@ -6,6 +6,7 @@ use App\Models\BlogCategory;
 use App\Models\Product;
 use App\Models\ProductAddon;
 use App\Models\ProductCategory;
+use App\Models\ProductHighlight;
 use App\Models\ProductsProductsAddon;
 use App\Models\Staff;
 use Illuminate\Http\Request;
@@ -27,10 +28,21 @@ class HomeController extends Controller
     public function index()
     {
         $sliders = Slider::all();
-        $products = Product::orderBy('id', 'DESC')->limit(8)->get();
+        $productHighlights = ProductHighlight::all();
+        $highlightedProducts = Product::all();
+
+        $products = [];
+
+        foreach ($productHighlights as $highlight) {
+            foreach ($highlightedProducts as $product) {
+                if ($product->id == $highlight->id_product) {
+                    $products[] = $product;
+                }
+            }
+        }
 
         $productCategories = ProductCategory::all();
-        return view('home', compact('sliders', 'products', 'productCategories'));
+        return view('home', compact('sliders', 'products', 'productCategories', 'highlightedProducts'));
     }
 
     public function product()

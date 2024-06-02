@@ -19,6 +19,7 @@
                     <li class="{{ request()->routeIs('product.index') ? 'active' : '' }}"><a class="nav-link" href="{{ route('product.index') }}">Produto - Lista</a></li>
                     <li class="{{ request()->routeIs('productCategory.index') ? 'active' : '' }}"><a class="nav-link" href="{{ route('productCategory.index') }}">Produto - Categorias</a></li>
                     <li class="{{ request()->routeIs('productAddon.index') ? 'active' : '' }}"><a class="nav-link" href="{{ route('productAddon.index') }}">Produto - Adicionais</a></li>
+                    <li class="{{ request()->routeIs('productHighlight.index') ? 'active':'' }}"><a class="nav-link" href="{{ route('productHighlight.index') }}">Produtos em Destaque</a></li>
                 </ul>
             </li>
             <li class="dropdown {{ request()->routeIs('blog.*') ? 'active':'' }}">
@@ -58,6 +59,14 @@
                     <span>Funcionários</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ request()->routeIs('staff.index') ? 'active':'' }}"><a class="nav-link" href="{{ route('staff.index') }}">Funcionários - Listar</a></li>
+                </ul>
+            </li>
+            <li class="dropdown {{ request()->routeIs('layout.*') ? 'active':'' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>Layouts e Conteúdos</span>
+                </a>
+                <ul class="dropdown-menu">
+                    {{-- <li class="{{ request()->routeIs('blogCategory.index') ? 'active':'' }}"><a class="nav-link" href="#">Blog - Categorias</a></li> --}}
                 </ul>
             </li>
             <li class="{{ request()->routeIs('admin.order') ? 'active':'' }}">

@@ -82,14 +82,14 @@ class ProductController extends Controller
         ]);
 
         $product = Product::create([
-                'category_id' => $request->category_id,
-                'title' => $request->title,
-                'thumbnail' => uploadImage($image, $path),
-                'description' => $request->description,
-                'price' => $price,
-                'discount_price' => $discountprice,
-                'status' => $request->status
-            ]);
+            'category_id' => $request->category_id,
+            'title' => $request->title,
+            'thumbnail' => uploadImage($image, $path),
+            'description' => $request->description,
+            'price' => $price,
+            'discount_price' => $discountprice,
+            'status' => $request->status
+        ]);
 
         if ($request->request->has('addons')) {
             foreach ($request->request->all()['addons'] as $addon) {
@@ -100,7 +100,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('product.index')->with('toast_success', 'Produto Adicionado com Sucesso.');
+        return redirect()->route('product.index')->with('toast_success', 'Produto Adicionado com Sucesso!');
     }
 
     /**
