@@ -66,7 +66,7 @@
                     <span>Layouts e Conteúdos</span>
                 </a>
                 <ul class="dropdown-menu">
-                    {{-- <li class="{{ request()->routeIs('blogCategory.index') ? 'active':'' }}"><a class="nav-link" href="#">Blog - Categorias</a></li> --}}
+                    <li class="{{ request()->routeIs('styles.index') ? 'active':'' }}"><a class="nav-link" href="{{ route('styles.index') }}">Estilos</a></li>
                 </ul>
             </li>
             <li class="{{ request()->routeIs('admin.order') ? 'active':'' }}">

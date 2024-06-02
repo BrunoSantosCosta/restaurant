@@ -9,6 +9,7 @@ use App\Models\ProductCategory;
 use App\Models\ProductHighlight;
 use App\Models\ProductsProductsAddon;
 use App\Models\Staff;
+use App\Models\Style;
 use Illuminate\Http\Request;
 use App\Models\Slider;
 use App\Models\Gallery;
@@ -42,7 +43,16 @@ class HomeController extends Controller
         }
 
         $productCategories = ProductCategory::all();
-        return view('home', compact('sliders', 'products', 'productCategories', 'highlightedProducts'));
+
+
+        $styles = Style::all();
+
+        foreach ($styles as $item) {
+            $general_color = $item->general_color;
+        }
+
+
+        return view('home', compact('sliders', 'products', 'productCategories', 'highlightedProducts', 'general_color'));
     }
 
     public function product()
@@ -55,13 +65,19 @@ class HomeController extends Controller
 
     public function gallery($type)
     {
+        $styles = Style::all();
+        foreach ($styles as $item) {
+            $general_color = $item->general_color;
+        }
+
         if ($type == 'photo') {
             $data = Gallery::where('type', 0)->get();
-            return view('frontend.gallery.photo', compact('data'));
+            return view('frontend.gallery.photo', compact('data', 'general_color'));
         }
 
         $data = Gallery::where('type', 1)->get();
-        return view('frontend.gallery.video', compact('data'));
+
+        return view('frontend.gallery.video', compact('data', 'general_color'));
     }
 
     public function blog()
@@ -70,7 +86,12 @@ class HomeController extends Controller
         $categories = BlogCategory::all();
         $latests = Blog::latest('created_at')->limit(3)->get();
 
-        return view('frontend.blog.index', compact('blogs', 'latests', 'categories'));
+        $styles = Style::all();
+        foreach ($styles as $item) {
+            $general_color = $item->general_color;
+        }
+
+        return view('frontend.blog.index', compact('blogs', 'latests', 'categories', 'general_color'));
     }
 
     public function getBlog(Blog $blog)
@@ -78,8 +99,11 @@ class HomeController extends Controller
 
         $categories = BlogCategory::all();
         $latests = Blog::latest('created_at')->limit(3)->get();
-
-        return view('frontend.blog.details', compact('blog', 'latests', 'categories'));
+        $styles = Style::all();
+        foreach ($styles as $item) {
+            $general_color = $item->general_color;
+        }
+        return view('frontend.blog.details', compact('blog', 'latests', 'categories', 'general_color'));
     }
 
 
@@ -88,21 +112,34 @@ class HomeController extends Controller
         $blogs = Blog::where('category_id', $id)->get();
         $categories = BlogCategory::all();
         $latests = Blog::latest('created_at')->limit(3)->get();
+        $styles = Style::all();
+        foreach ($styles as $item) {
+            $general_color = $item->general_color;
+        }
 
-        return view('frontend.blog.index', compact('blogs', 'latests', 'categories'));
+
+        return view('frontend.blog.index', compact('blogs', 'latests', 'categories', 'general_color'));
     }
 
     public function about()
     {
         $services = Service::limit(4)->get();
         $staffs = Staff::all();
+        $styles = Style::all();
+        foreach ($styles as $item) {
+            $general_color = $item->general_color;
+        }
 
-        return view('frontend.about', compact('services', 'staffs'));
+        return view('frontend.about', compact('services', 'staffs', 'general_color'));
     }
 
     public function contact()
     {
-        return view('frontend.contact');
+        $styles = Style::all();
+        foreach ($styles as $item) {
+            $general_color = $item->general_color;
+        }
+        return view('frontend.contact', compact('general_color'));
     }
 
     public function mail(Request $request)
@@ -122,7 +159,12 @@ class HomeController extends Controller
     public function getProductCategories()
     {
         $productCategories = ProductCategory::with('products')->get();
-        return view('frontend.productCategories.index', compact('productCategories'));
+        $styles = Style::all();
+        foreach ($styles as $item) {
+            $general_color = $item->general_color;
+        }
+
+        return view('frontend.productCategories.index', compact('productCategories', 'general_color'));
     }
 
     public function getProductDetails($id)
@@ -138,7 +180,13 @@ class HomeController extends Controller
         $addonIds = ProductsProductsAddon::where('id_product', $product->id)->pluck('id_addon');
 
         $addons = ProductAddon::whereIn('id', $addonIds)->get();
-        return view('frontend.productDetails.index', compact('product', 'addons'));
+
+        $styles = Style::all();
+        foreach ($styles as $item) {
+            $general_color = $item->general_color;
+        }
+
+        return view('frontend.productDetails.index', compact('product', 'addons', 'general_color'));
     }
 
 }

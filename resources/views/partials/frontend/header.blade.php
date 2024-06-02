@@ -57,7 +57,7 @@
                 <li><a href="javascript:void(0)" class="btn_top" data-bs-toggle="modal" data-bs-target="#registerModal">Registrar</a></li>
                 @else
                 <li>
-                    <a class="btn_top" href="{{ route('logout') }}"
+                    <a class="btn_top custom-teste" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                     {{ __('Sair') }}
