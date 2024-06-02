@@ -14,6 +14,10 @@ Route::group(['middleware' => ['role:admin']], function () {
 
     // Accompaniment routes
     Route::resource('/productAddon', \App\Http\Controllers\ProductAddonController::class, ['names' => 'productAddon']);
+
+    // Products Highlights
+    Route::resource('/productHighlight', \App\Http\Controllers\ProductHighlightController::class, ['names' => 'productHighlight']);
+
     // Service routes
     Route::resource('/service', \App\Http\Controllers\ServiceController::class, ['names' => 'service']);
     // Staff routes
