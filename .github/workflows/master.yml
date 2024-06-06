@@ -15,7 +15,6 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: '8.0'
-                with:
                     server: ${{ secrets.ftp_host }}
                     username: ${{ secrets.ftp_user }}
                     password: ${{ secrets.ftp_password }}
