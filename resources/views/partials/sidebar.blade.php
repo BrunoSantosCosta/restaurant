@@ -69,6 +69,15 @@
                     <li class="{{ request()->routeIs('styles.index') ? 'active':'' }}"><a class="nav-link" href="{{ route('styles.index') }}">Estilos</a></li>
                 </ul>
             </li>
+            <li class="dropdown {{ request()->routeIs('layout.*') ? 'active':'' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>Usuarios e Acessos</span>
+                </a>
+                <ul class="dropdown-menu">
+                    {{-- <li class="{{ request()->routeIs('users.index') ? 'active':'' }}"><a class="nav-link" href="{{ route('users.index') }}">Administradores</a></li>
+                    <li class="{{ request()->routeIs('users.index') ? 'active':'' }}"><a class="nav-link" href="{{ route('users.index') }}">Clientes</a></li> --}}
+                </ul>
+            </li>
             <li class="{{ request()->routeIs('admin.order') ? 'active':'' }}">
                 <a href="{{ route('admin.order') }}" class="nav-link"><i class="fas fa-fire"></i><span>Pedidos</span></a>
             </li>
