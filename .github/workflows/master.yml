@@ -15,11 +15,7 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: '8.0'
-            -   name: Deploy to Server
-                uses: ngocquyhoang/deploy@laravel
                 with:
                     server: ${{ secrets.ftp_host }}
                     username: ${{ secrets.ftp_user }}
                     password: ${{ secrets.ftp_password }}
-                # env:
-                #     DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
