@@ -42,5 +42,10 @@ Route::group(['middleware' => ['role:admin']], function () {
     // Route::get('/schedules', [App\Http\Controllers\SchedulesController::class, 'index'])->name('admin.schedules');
     Route::resource('/schedules', \App\Http\Controllers\SchedulesController::class, ['names' => 'schedules']);
 
+
+    // Usures
+    Route::resource('/users', \App\Http\Controllers\UsersController::class, ['names' => 'productHighlight']);
+
+
 });
 
